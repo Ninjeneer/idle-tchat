@@ -102,7 +102,7 @@ public class TchatServer {
 	 * @param gdc Client
 	 */
 	public void addGerantDeClient(GerantDeClient gdc) {
-		sendNotification(gdc, ">>> " + gdc.getPseudo() + " vient de rejoindre le serveur :D");
+		sendNotification(gdc, ">>> " + gdc.getPseudo() + "(" + gdc.getSocket().getInetAddress() + ") vient de rejoindre le serveur :D");
 		this.clientList.add(gdc);
 	}
 

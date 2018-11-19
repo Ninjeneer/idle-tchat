@@ -109,6 +109,10 @@ public class GerantDeClient implements Runnable {
 	public String getCouleur() {
 		return this.couleur;
 	}
+	
+	public Socket getSocket() {
+		return this.s;
+	}
 
 	/**
 	 * Affiche un message à l'utilisateur

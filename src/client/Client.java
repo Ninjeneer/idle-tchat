@@ -10,27 +10,38 @@ import java.util.Scanner;
 public class Client {
 	public Client(){
 		
-		String serveur;
+		String serveur,pseudo,port,temp;
 		Scanner sc;
 		System.out.println("Bienvenue sur Idle Tchat ");
+		sc = new Scanner(System.in);
+		
 		do{
-			System.out.print("A quel serveur voulez-vous vous connecter : ");
-			sc = new Scanner(System.in);
-			serveur = sc.nextLine();
-		}while(serveur.equals(""));
+			System.out.print("A quel pseudo voulez-vous avoir : ");
+			pseudo = sc.nextLine();
+		}while(pseudo.equals(""));
+		
+		do{
+			System.out.print("A quel serveur et port voulez-vous vous connecter : ");
+			temp = sc.nextLine();
+			serveur = temp.split(":")[0];
+			port = temp.split(":")[1];
+		}while(temp.equals(""));
 		
 		sc.close();
 		try
 		{
 			System.out.println("Connexion au serveur " + serveur);
-			Socket toServer = new Socket(serveur, 9000) ;
+			Socket toServer = new Socket(serveur, Integer.parseInt(port)) ;
 			System.out.println("Connecte");
 
 			PrintWriter out = new PrintWriter(toServer.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(toServer.getInputStream()));
 
-			String message = in.readLine();
-			System.out.println(message);
+			out.println(pseudo);
+			while(true){
+				System.out.println(in.readLine());
+				out.println(sc.nextLine());
+			}
 		}
 		catch(IOException ioe) 
 		{

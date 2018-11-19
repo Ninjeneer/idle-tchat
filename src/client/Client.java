@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
+
+import iut.algo.Console;
 
 public class Client {
 	public Client(){
@@ -15,11 +18,14 @@ public class Client {
 		System.out.println("Bienvenue sur Idle Tchat ");
 		sc = new Scanner(System.in);
 		
+		// définition du pseudo
 		do{
 			System.out.print("A quel pseudo voulez-vous avoir : ");
 			pseudo = sc.nextLine();
 		}while(pseudo.equals(""));
 		
+		
+		// définition du serveur
 		do{
 			System.out.print("A quel serveur et port voulez-vous vous connecter : ");
 			temp = sc.nextLine();
@@ -27,28 +33,48 @@ public class Client {
 			port = temp.split(":")[1];
 		}while(temp.equals(""));
 		
-		sc.close();
+
+		// connexion au serveur
 		try
 		{
-			System.out.println("Connexion au serveur " + serveur);
+			System.out.println("Connexion au serveur " + serveur + "...");
 			Socket toServer = new Socket(serveur, Integer.parseInt(port)) ;
-			System.out.println("Connecte");
 
 			PrintWriter out = new PrintWriter(toServer.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(toServer.getInputStream()));
 
+			// envoi du pseudo au serveur
 			out.println(pseudo);
-			while(true){
-				System.out.println(in.readLine());
-				out.println(sc.nextLine());
-			}
+			
+			// boucle principale
+			String message = "";
+			
+			CompletableFuture.runAsync(() -> 
+				{
+					try {
+						while(true)
+							Console.println(in.readLine());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			);
+			
+			do {
+				message = sc.nextLine();
+				out.println(message);
+			}while(!message.equals("quit"));
+			
+			// deconnexion
+			System.out.println("Vous avez été déconnecté avec succès !");
 		}
-		catch(IOException ioe) 
+		catch(Exception e) 
 		{
 			System.out.println("ERREUR DETECTEE");
-			ioe.printStackTrace();
-			System.exit(1);
+			e.printStackTrace();
 		}
+		
+		sc.close();
 	}
 	
 	public static void main(String[] args) {

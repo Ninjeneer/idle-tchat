@@ -7,18 +7,21 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class GerantDeClient implements Runnable {
+	
+	private static final String[] couleurs = new String[] { "\033[0;31m", "\033[0;32m", "\033[0;33m",
+			                                                "\033[0;34m", "\033[0;35m", "\033[0;36m", "\033[0;37m" };
 
 	private TchatServer ts;
 	private Socket s;
 	private PrintWriter out;
 	private BufferedReader in;
+	private boolean tAlive;
 
 	// informations relatives au client
+	private String couleur;
 	private String pseudo;
 	private String ip;
 
-	
-	
 	/**
 	 * Crée un gérant de client
 	 * 
@@ -28,6 +31,8 @@ public class GerantDeClient implements Runnable {
 	public GerantDeClient(TchatServer ts, Socket s) {
 		this.ts = ts;
 		this.s = s;
+		this.tAlive = true;
+		this.couleur = GerantDeClient.couleurs[(int)(Math.random() * GerantDeClient.couleurs.length)];
 
 		try {
 			this.out = new PrintWriter(s.getOutputStream(), true);
@@ -42,7 +47,6 @@ public class GerantDeClient implements Runnable {
 	 */
 	@Override
 	public void run() {
-		this.ts.addPrintWriter(this.out);
 
 		// lecture du pseudo
 		try {
@@ -51,37 +55,32 @@ public class GerantDeClient implements Runnable {
 			e1.printStackTrace();
 		}
 
-		
 		// message de bienvenue
 		try {
-			this.out.println("Bienvenue " + pseudo);
+			this.out.println("Bienvenue sur le serveur " + pseudo + " !");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		
-		// notification générale de connexion
-		try {
-			this.ts.sendMessage(this.out, pseudo + " vient de se connecter ! (" + this.s.getInetAddress().getHostAddress() + ")");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
+		this.ts.addGerantDeClient(this);
 
-		while (true) {
+		while (this.tAlive) {
 			try {
 				String message = this.in.readLine();
-				
-				this.ts.sendMessage(this.out, pseudo + ": " + message);
-				
+
+				if (message.equals("quit")) {
+					this.ts.delGerantDeClient(this);
+					this.tAlive = false;
+				} else {
+					this.ts.sendMessage(this, message);
+				}
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	
 	/**
 	 * Retourne le printwriter
 	 * 
@@ -89,6 +88,28 @@ public class GerantDeClient implements Runnable {
 	 */
 	public PrintWriter getPrintwriter() {
 		return this.out;
+	}
+
+	/**
+	 * Retourne le pseudo du client
+	 * 
+	 * @return Pseudo
+	 */
+	public String getPseudo() {
+		return this.pseudo;
+	}
+	
+	public String getCouleur() {
+		return this.couleur;
+	}
+
+	/**
+	 * Affiche un message à l'utilisateur
+	 * 
+	 * @param s
+	 */
+	public void showMessage(String s) {
+		this.out.println(s);
 	}
 
 }

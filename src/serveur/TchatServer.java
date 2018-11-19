@@ -4,12 +4,14 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TchatServer {
 
 	
 	private ServerSocket ss;
 	private ArrayList<PrintWriter> clientList;
+	
 	
 	
 	/**
@@ -64,7 +66,7 @@ public class TchatServer {
 		for (PrintWriter pw : this.clientList) {
 			if (pw != sender)
 				pw.println(s);
-		}	
+		}
 	}
 	
 	

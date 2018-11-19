@@ -10,17 +10,32 @@ public class Help implements Commande {
 
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
-		sender.showMessage(Affichage.gras + "Liste des commandes : " + Affichage.reset);
-		for (Entry<String, Commande> commande : ts.getCommandeList().entrySet())
-			sender.showMessage("\t" + commande.getKey() + " - " + commande.getValue().getDescription()); 
+		if (args.length == 1) {
+			sender.showMessage(Affichage.gras + "Liste des commandes : " + Affichage.reset);
+			for (Entry<String, Commande> commande : ts.getCommandeList().entrySet())
+				sender.showMessage("\t" + commande.getKey() + " - " + commande.getValue().getDescription());
 			
-			
-		return true;
+			return true;
+		}
+		
+		
+		if (args.length == 2) {
+			for (Entry<String, Commande> commande : ts.getCommandeList().entrySet())
+				if (commande.getKey().equals(args[1])) {
+					sender.showMessage(Affichage.gras + "Aide concernant la commande /" + commande.getKey() + " :" + Affichage.reset);
+					sender.showMessage("\t" + commande.getValue().getDescription());
+					sender.showMessage("\t" + commande.getValue().getError());
+					
+					return true;
+				}
+		}
+		 
+		return false;
 	}
 
 	@Override
 	public String getError() {
-		return "";
+		return "USAGE : /help [commande]";
 	}
 
 	@Override

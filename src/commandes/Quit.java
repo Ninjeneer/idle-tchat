@@ -13,7 +13,7 @@ public class Quit implements Commande {
 
 	@Override
 	public String getError() {
-		return "";
+		return "USAGE : /quit";
 	}
 
 	@Override

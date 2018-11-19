@@ -10,6 +10,7 @@ import commandes.Commande;
 import commandes.Coucou;
 import commandes.Help;
 import commandes.MP;
+import commandes.Me;
 import commandes.Nick;
 import commandes.Quit;
 import commandes.Wizz;
@@ -44,6 +45,7 @@ public class TchatServer {
 		addCommande("help", new Help());
 		addCommande("nick", new Nick());
 		addCommande("quit", new Quit());
+		addCommande("me", new Me());
 
 		while (true) {
 			// attente du client
@@ -119,7 +121,7 @@ public class TchatServer {
 	public void addGerantDeClient(GerantDeClient gdc) {
 		sendNotification(gdc, ">>> " + gdc.getPseudo() + "(" + gdc.getSocket().getInetAddress()
 				+ ") vient de rejoindre le serveur :D");
-		gdc.showMessage(Affichage.gras + "Tapez /help afin d'obtenir de l'aide" + Affichage.reset);
+		gdc.showMessage(Affichage.gras + "Tapez /help [commande] afin d'obtenir de l'aide" + Affichage.reset);
 		this.clientList.add(gdc);
 	}
 

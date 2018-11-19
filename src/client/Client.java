@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 
-import iut.algo.Console;
 
 public class Client {
 	public Client(){
@@ -53,7 +52,7 @@ public class Client {
 				{
 					try {
 						while(true)
-							Console.println(in.readLine());
+							System.out.println(in.readLine());
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

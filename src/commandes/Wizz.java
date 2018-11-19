@@ -23,7 +23,7 @@ public class Wizz implements Commande {
 			}
 		}
 		
-		System.out.println("lol");
+		
 		
 		return true;
 			

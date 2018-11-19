@@ -28,7 +28,6 @@ public class MP implements Commande {
 			}
 		}
 		
-		System.out.println("lol");
 		
 		return true;
 			

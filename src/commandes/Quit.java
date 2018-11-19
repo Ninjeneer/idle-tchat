@@ -21,4 +21,9 @@ public class Quit implements Commande {
 		return "permet de se déconnecter";
 	}
 
+	@Override
+	public boolean estAffichable() {
+		return true;
+	}
+
 }

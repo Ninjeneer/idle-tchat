@@ -13,7 +13,8 @@ public class Help implements Commande {
 		if (args.length == 1) {
 			sender.showMessage(Affichage.gras + "Liste des commandes : " + Affichage.reset);
 			for (Entry<String, Commande> commande : ts.getCommandeList().entrySet())
-				sender.showMessage("\t" + commande.getKey() + " - " + commande.getValue().getDescription());
+				if (commande.getValue().estAffichable())
+					sender.showMessage(String.format("%15s", commande.getKey()) + " - " + String.format("%-50s", commande.getValue().getDescription()));
 			
 			return true;
 		}
@@ -21,7 +22,7 @@ public class Help implements Commande {
 		
 		if (args.length == 2) {
 			for (Entry<String, Commande> commande : ts.getCommandeList().entrySet())
-				if (commande.getKey().equals(args[1])) {
+				if (commande.getKey().equals(args[1]) && commande.getValue().estAffichable()) {
 					sender.showMessage(Affichage.gras + "Aide concernant la commande /" + commande.getKey() + " :" + Affichage.reset);
 					sender.showMessage("\t" + commande.getValue().getDescription());
 					sender.showMessage("\t" + commande.getValue().getError());
@@ -41,6 +42,11 @@ public class Help implements Commande {
 	@Override
 	public String getDescription() {
 		return "affiche la liste des commandes";
+	}
+
+	@Override
+	public boolean estAffichable() {
+		return true;
 	}
 
 }

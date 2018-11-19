@@ -23,5 +23,10 @@ public class Coucou implements Commande {
 		return "faites coucou à tout le monde !";
 	}
 
+	@Override
+	public boolean estAffichable() {
+		return true;
+	}
+
 	
 }

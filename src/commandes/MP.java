@@ -14,13 +14,10 @@ public class MP implements Commande {
 		
 		for (GerantDeClient cible : ts.getClientList()) {
 			if (cible.getPseudo().equals(args[1])) {
-				String[] ensembleMot = new String[args.length-2];
-				for (int i = 2; i < args.length; i++)
-					ensembleMot[i-2] = args[i];
 				
 				String messageFinal = "";
-				for (String mot : ensembleMot)
-					messageFinal += mot + " ";
+				for (int i = 2; i < args.length; i++)
+					messageFinal += args[i] + " ";
 				
 				cible.showMessage(Affichage.italic + " ~ " + sender.getPseudo() + " vous a envoyé un MP : " + messageFinal + Affichage.reset);
 				return true;
@@ -38,6 +35,11 @@ public class MP implements Commande {
 	@Override
 	public String getDescription() {
 		return "envoie un message privé au destinataire";
+	}
+
+	@Override
+	public boolean estAffichable() {
+		return true;
 	}
 
 }

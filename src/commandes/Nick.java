@@ -31,4 +31,9 @@ public class Nick implements Commande {
 		return "permet de changer de pseudonyme";
 	}
 
+	@Override
+	public boolean estAffichable() {
+		return true;
+	}
+
 }

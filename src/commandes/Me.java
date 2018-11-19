@@ -14,7 +14,7 @@ public class Me implements Commande {
 		String messageFinal = "";
 		
 		for (int i = 1; i < args.length; i++)
-			messageFinal += args[i];
+			messageFinal += args[i] + " ";
 		
 		ts.sendNotification(sender, Affichage.italic + Affichage.gris + "* " + sender.getPseudo() + " " + messageFinal + Affichage.reset);
 		sender.showMessage(Affichage.italic + Affichage.gris + "* " + sender.getPseudo() + " " + messageFinal + Affichage.reset);
@@ -30,6 +30,11 @@ public class Me implements Commande {
 	@Override
 	public String getDescription() {
 		return "permet de faire une action";
+	}
+
+	@Override
+	public boolean estAffichable() {
+		return true;
 	}
 
 }

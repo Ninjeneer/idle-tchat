@@ -18,6 +18,7 @@ public class GerantDeClient implements Runnable {
 	private String couleur;
 	private String pseudo;
 	private String ip;
+	private boolean isAdmin;
 
 	/**
 	 * Crée un gérant de client
@@ -51,6 +52,13 @@ public class GerantDeClient implements Runnable {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		
+		
+		for (GerantDeClient gdc : this.ts.getClientList())
+			if (this.pseudo.equals(gdc.getPseudo())) {
+				this.out.println(Affichage.gras + "ERREUR : Ce pseudo est déjà utilisé ! Quittez et recommencez." + Affichage.reset);
+				return;
+			}
 
 		// message de bienvenue
 		try {
@@ -122,14 +130,32 @@ public class GerantDeClient implements Runnable {
 	public Socket getSocket() {
 		return this.s;
 	}
-	
+	 /**
+	  * Défini le pseudo du client
+	  * @param pseudo
+	  */
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
 	}
 	
+	/**
+	 * Déconnecte le client
+	 */
 	public void deconnecter() {
 		this.tAlive = false;
 		this.ts.delGerantDeClient(this);
+	}
+	
+	/**
+	 * Retourne vrai si le client est administrateur
+	 * @return est admin
+	 */
+	public boolean isAdmin() {
+		return this.isAdmin;
+	}
+	
+	public void setAdmin(boolean b) {
+		this.isAdmin = b;
 	}
 
 	

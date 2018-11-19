@@ -1,0 +1,38 @@
+package commandes.admin;
+
+import commandes.Commande;
+import serveur.Affichage;
+import serveur.GerantDeClient;
+import serveur.TchatServer;
+
+public class AdminLogoff implements Commande {
+
+	@Override
+	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
+		if (args.length != 1)
+			return false;
+		
+		if (sender.isAdmin()) {
+			sender.setAdmin(false);
+			sender.showMessage(Affichage.vert + "Vous n'êtes plus administrateur." + Affichage.reset);
+		}
+			
+		return true;
+	}
+
+	@Override
+	public boolean estAffichable() {
+		return false;
+	}
+
+	@Override
+	public String getError() {
+		return "USAGE : /adminlogoff";
+	}
+
+	@Override
+	public String getDescription() {
+		return "se déconnecter du mode administrateur";
+	}
+
+}

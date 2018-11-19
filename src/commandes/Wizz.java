@@ -41,4 +41,9 @@ public class Wizz implements Commande {
 		return "envoie un Wizz à la personne ciblée";
 	}
 
+	@Override
+	public boolean estAffichable() {
+		return true;
+	}
+
 }

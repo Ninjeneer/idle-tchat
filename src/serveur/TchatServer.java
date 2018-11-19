@@ -13,7 +13,11 @@ import commandes.MP;
 import commandes.Me;
 import commandes.Nick;
 import commandes.Quit;
+import commandes.Who;
 import commandes.Wizz;
+import commandes.admin.AdminLogin;
+import commandes.admin.AdminLogoff;
+import commandes.admin.Kick;
 
 public class TchatServer {
 
@@ -24,12 +28,13 @@ public class TchatServer {
 	/**
 	 * Crée un serveur de tchat
 	 */
-	public TchatServer() {
+	public TchatServer(int port) {
 
 		try {
 			// création du serveur
 			System.out.println("Création du tchat..");
-			this.ss = new ServerSocket(8003);
+			this.ss = new ServerSocket(port);
+			System.out.println("Tchat créé !");
 		} catch (Exception e) {
 			System.out.println("Impossible de créer le serveur");
 			e.printStackTrace();
@@ -46,6 +51,10 @@ public class TchatServer {
 		addCommande("nick", new Nick());
 		addCommande("quit", new Quit());
 		addCommande("me", new Me());
+		addCommande("kick", new Kick());
+		addCommande("adminlogin", new AdminLogin());
+		addCommande("adminlogoff", new AdminLogoff());
+		addCommande("who", new Who());
 
 		while (true) {
 			// attente du client
@@ -164,6 +173,6 @@ public class TchatServer {
 	}
 
 	public static void main(String[] args) {
-		new TchatServer();
+		new TchatServer(8003);
 	}
 }

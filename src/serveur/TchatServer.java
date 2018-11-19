@@ -15,9 +15,13 @@ import commandes.Nick;
 import commandes.Quit;
 import commandes.Who;
 import commandes.Wizz;
+import commandes.admin.AdminHelp;
 import commandes.admin.AdminLogin;
 import commandes.admin.AdminLogoff;
 import commandes.admin.Kick;
+import commandes.admin.Mute;
+import commandes.admin.Say;
+import commandes.admin.UnMute;
 
 public class TchatServer {
 
@@ -55,6 +59,10 @@ public class TchatServer {
 		addCommande("adminlogin", new AdminLogin());
 		addCommande("adminlogoff", new AdminLogoff());
 		addCommande("who", new Who());
+		addCommande("mute", new Mute());
+		addCommande("unmute", new UnMute());
+		addCommande("say", new Say());
+		addCommande("adminhelp", new AdminHelp());
 
 		while (true) {
 			// attente du client
@@ -102,7 +110,7 @@ public class TchatServer {
 		} else {
 			// envoi du message
 			for (GerantDeClient gdc : this.clientList) {
-				if (gdc != sender)
+				if (gdc != sender && !sender.isMuted())
 					gdc.getPrintwriter().println(sender.getCouleur() + sender.getPseudo() + ": " + "\033[0m" + s);
 			}
 		}

@@ -10,6 +10,8 @@ import commandes.Commande;
 import commandes.Coucou;
 import commandes.Help;
 import commandes.MP;
+import commandes.Nick;
+import commandes.Quit;
 import commandes.Wizz;
 
 public class TchatServer {
@@ -40,6 +42,8 @@ public class TchatServer {
 		addCommande("mp", new MP());
 		addCommande("wizz", new Wizz());
 		addCommande("help", new Help());
+		addCommande("nick", new Nick());
+		addCommande("quit", new Quit());
 
 		while (true) {
 			// attente du client

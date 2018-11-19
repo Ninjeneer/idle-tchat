@@ -72,19 +72,21 @@ public class GerantDeClient implements Runnable {
 		// boucle principale
 		while (this.tAlive) {
 			try {
-				String message = this.in.readLine();
-
-				if (message.equals("quit")) {
-					this.ts.delGerantDeClient(this);
-					this.tAlive = false;
-				} else {
-					this.ts.sendMessage(this, message);
-				}
-
-			} catch (IOException e) {
+				this.ts.sendMessage(this, this.in.readLine());
+			}
+			catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * Affiche un message à l'utilisateur
+	 * 
+	 * @param s
+	 */
+	public void showMessage(String s) {
+		this.out.println(s);
 	}
 
 	/**
@@ -120,14 +122,16 @@ public class GerantDeClient implements Runnable {
 	public Socket getSocket() {
 		return this.s;
 	}
-
-	/**
-	 * Affiche un message à l'utilisateur
-	 * 
-	 * @param s
-	 */
-	public void showMessage(String s) {
-		this.out.println(s);
+	
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
 	}
+	
+	public void deconnecter() {
+		this.tAlive = false;
+		this.ts.delGerantDeClient(this);
+	}
+
+	
 
 }

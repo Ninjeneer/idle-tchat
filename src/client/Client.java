@@ -62,7 +62,7 @@ public class Client {
 			do {
 				message = sc.nextLine();
 				out.println(message);
-			}while(!message.equals("quit"));
+			}while(!message.equals("/quit"));
 			
 			// deconnexion
 			System.out.println("Vous avez été déconnecté avec succès !");

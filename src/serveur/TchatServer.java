@@ -8,7 +8,9 @@ import java.util.HashMap;
 
 import commandes.Commande;
 import commandes.Coucou;
+import commandes.Help;
 import commandes.MP;
+import commandes.Wizz;
 
 public class TchatServer {
 
@@ -31,11 +33,13 @@ public class TchatServer {
 		}
 
 		this.clientList = new ArrayList<GerantDeClient>();
-		this.commandeListe = new HashMap<String,Commande>();
-		
+		this.commandeListe = new HashMap<String, Commande>();
+
 		// ajout des commandes
 		addCommande("coucou", new Coucou());
 		addCommande("mp", new MP());
+		addCommande("wizz", new Wizz());
+		addCommande("help", new Help());
 
 		while (true) {
 			// attente du client
@@ -65,22 +69,29 @@ public class TchatServer {
 		// gestion des commandes
 		if (s.startsWith("/")) {
 			String trigger;
-			
+
 			if (s.contains(" "))
-				 trigger = s.substring(1, s.indexOf(" "));
+				trigger = s.substring(1, s.indexOf(" "));
 			else
 				trigger = s.substring(1);
-			
-			this.commandeListe.get(trigger).onCommand(this, sender, s.split(" "));
+
+			// si la commande n'existe pas
+			if (!this.commandeListe.containsKey(trigger)) {
+				sender.showMessage(Affichage.gras + "ERREUR : cette commande n'existe pas" + Affichage.reset);
+				return;
+			}
+
+			// si la commande est mal utilisée
+			if (!this.commandeListe.get(trigger).onCommand(this, sender, s.split(" ")))
+				sender.showMessage(Affichage.gras + this.commandeListe.get(trigger).getError() + Affichage.reset);
 		} else {
+			// envoi du message
 			for (GerantDeClient gdc : this.clientList) {
 				if (gdc != sender)
 					gdc.getPrintwriter().println(sender.getCouleur() + sender.getPseudo() + ": " + "\033[0m" + s);
 			}
 		}
 
-		
-		
 	}
 
 	/**
@@ -102,7 +113,9 @@ public class TchatServer {
 	 * @param gdc Client
 	 */
 	public void addGerantDeClient(GerantDeClient gdc) {
-		sendNotification(gdc, ">>> " + gdc.getPseudo() + "(" + gdc.getSocket().getInetAddress() + ") vient de rejoindre le serveur :D");
+		sendNotification(gdc, ">>> " + gdc.getPseudo() + "(" + gdc.getSocket().getInetAddress()
+				+ ") vient de rejoindre le serveur :D");
+		gdc.showMessage(Affichage.gras + "Tapez /help afin d'obtenir de l'aide" + Affichage.reset);
 		this.clientList.add(gdc);
 	}
 
@@ -115,18 +128,35 @@ public class TchatServer {
 		sendNotification(gdc, "<<< " + gdc.getPseudo() + " vient de quitter le serveur :(");
 		this.clientList.remove(gdc);
 	}
-	
+
+	/**
+	 * Ajoute une commande au serveur
+	 * 
+	 * @param trigger commande utilisateur
+	 * @param cmd     commande déclenchée
+	 */
 	private void addCommande(String trigger, Commande cmd) {
 		this.commandeListe.put(trigger, cmd);
 	}
-	
+
+	/**
+	 * Retourne la liste des clients
+	 * 
+	 * @return liste de clients
+	 */
 	public ArrayList<GerantDeClient> getClientList() {
 		return this.clientList;
 	}
 
-	
-	
-	
+	/**
+	 * Retourne la liste des commandes
+	 * 
+	 * @return liste des commandes
+	 */
+	public HashMap<String, Commande> getCommandeList() {
+		return this.commandeListe;
+	}
+
 	public static void main(String[] args) {
 		new TchatServer();
 	}

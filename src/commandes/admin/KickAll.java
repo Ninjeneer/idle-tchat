@@ -14,6 +14,8 @@ public class KickAll implements Commande {
 				ts.sendNotification(sender, Affichage.rouge + "Un administrateur a kické tout le monde !" + Affichage.reset);
 				cible.deconnecter();
 			}
+		
+		
 		return true;
 	}
 

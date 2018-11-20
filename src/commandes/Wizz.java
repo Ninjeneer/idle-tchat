@@ -23,8 +23,6 @@ public class Wizz implements Commande {
 		
 		for (GerantDeClient cible : ts.getClientList()) {
 			if (cible.getPseudo().equals(args[1])) {
-				
-				
 				sender.showMessage(Affichage.gras + "Vous avez envoyé un Wizz à " + cible.getPseudo() + Affichage.reset);
 				cible.showMessage(Affichage.gras + Wizz.getWizz() + Affichage.reset);
 				cible.showMessage(Affichage.gras + sender.getPseudo() + " vous a envoyé un Wizz !" + Affichage.reset);

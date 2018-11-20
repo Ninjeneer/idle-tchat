@@ -16,12 +16,10 @@ public class WizzAll implements Commande{
 				sender.showMessage(Affichage.gras + "Vous avez envoyé un Wizz à tout le monde " + cible.getPseudo() + Affichage.reset);
 				cible.showMessage(Affichage.gras + Wizz.getWizz() + Affichage.reset);
 				cible.showMessage(Affichage.gras + sender.getPseudo() + " vous avez reçu un Wizz !" + Affichage.reset);
-				
-				return true;
 			}
 		}
 			
-		return false;
+		return true;
 	}
 
 	@Override

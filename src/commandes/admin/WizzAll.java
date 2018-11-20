@@ -9,8 +9,9 @@ public class WizzAll implements Commande{
 
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
+		Wizz w = new Wizz();
 		for (GerantDeClient cible : ts.getClientList())
-			new Wizz().onCommand(ts, sender, new String[] {cible.getPseudo()});
+			w.onCommand(ts, sender, new String[] {cible.getPseudo()});
 		return true;
 	}
 

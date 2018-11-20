@@ -5,6 +5,14 @@ import serveur.GerantDeClient;
 import serveur.TchatServer;
 
 public class Wizz implements Commande {
+	
+	public static String getWizz() {
+		String alea = "";
+		for(int i = 0; i < 3000; i++)
+			alea += Affichage.randomColor() + (char) ('A' + (int) (Math.random() * ('Z'-'A')));
+		
+		return alea;
+	}
 
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
@@ -15,12 +23,10 @@ public class Wizz implements Commande {
 		
 		for (GerantDeClient cible : ts.getClientList()) {
 			if (cible.getPseudo().equals(args[1])) {
-				String alea = "";
-				for(int i = 0; i < 3000; i++)
-					alea += Affichage.randomColor() + (char) ('A' + (int) (Math.random() * ('Z'-'A')));
+				
 				
 				sender.showMessage(Affichage.gras + "Vous avez envoyé un Wizz à " + cible.getPseudo() + Affichage.reset);
-				cible.showMessage(Affichage.gras + alea + Affichage.reset);
+				cible.showMessage(Affichage.gras + Wizz.getWizz() + Affichage.reset);
 				cible.showMessage(Affichage.gras + sender.getPseudo() + " vous a envoyé un Wizz !" + Affichage.reset);
 				
 				return true;

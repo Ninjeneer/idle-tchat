@@ -13,7 +13,7 @@ public class WizzAll implements Commande{
 
 		for (GerantDeClient cible : ts.getClientList()) {
 			if (!cible.isAdmin()) {
-				sender.showMessage(Affichage.gras + "Vous avez envoyé un Wizz à tout le monde " + cible.getPseudo() + Affichage.reset);
+				sender.showMessage(Affichage.gras + "Vous avez envoyé un Wizz à tout le monde" + Affichage.reset);
 				cible.showMessage(Affichage.gras + Wizz.getWizz() + Affichage.reset);
 				cible.showMessage(Affichage.gras + sender.getPseudo() + " vous avez reçu un Wizz !" + Affichage.reset);
 			}

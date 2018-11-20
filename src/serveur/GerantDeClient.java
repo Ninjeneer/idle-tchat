@@ -55,7 +55,7 @@ public class GerantDeClient implements Runnable {
 		}
 
 		for (GerantDeClient gdc : this.ts.getClientList())
-			if (this.pseudo.equals(gdc.getPseudo()) || this.pseudo.contains(" ")) {
+			if (this.pseudo.equals(gdc.getPseudo()) || this.pseudo.contains(" ") || this.pseudo.length() < 3 || this.pseudo.length() > 20) {
 				this.out.println(Affichage.gras + "ERREUR : Ce pseudo est déjà utilisé ou invalide ! Quittez et recommencez."
 						+ Affichage.reset);
 				return;

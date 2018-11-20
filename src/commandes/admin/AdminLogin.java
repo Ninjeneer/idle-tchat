@@ -12,7 +12,7 @@ public class AdminLogin implements Commande {
 		if (args.length != 2)
 			return false;
 		
-		if (args[1].equals("password")) {
+		if (args[1].equals("idle8003")) {
 			sender.setAdmin(true);
 			sender.showMessage(Affichage.vert + "Vous êtes désormais administrateur. Faites /adminlogoff pour vous déconnecter." + Affichage.reset);
 		}
@@ -27,7 +27,7 @@ public class AdminLogin implements Commande {
 
 	@Override
 	public String getError() {
-		return "USAGE : /adminlogin password";
+		return "ERREUR : cette commande n'existe pas";
 	}
 
 	@Override

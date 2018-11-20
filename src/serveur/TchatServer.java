@@ -18,6 +18,7 @@ import commandes.Wizz;
 import commandes.admin.AdminHelp;
 import commandes.admin.AdminLogin;
 import commandes.admin.AdminLogoff;
+import commandes.admin.GetInfo;
 import commandes.admin.Kick;
 import commandes.admin.Mute;
 import commandes.admin.Say;
@@ -63,6 +64,7 @@ public class TchatServer {
 		addCommande("unmute", new UnMute());
 		addCommande("say", new Say());
 		addCommande("adminhelp", new AdminHelp());
+		addCommande("getinfo", new GetInfo());
 
 		while (true) {
 			// attente du client

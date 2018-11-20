@@ -9,11 +9,13 @@ public class KickAll implements Commande {
 
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
-		for (GerantDeClient cible : ts.getClientList())
+		for (GerantDeClient cible : ts.getClientList()) {
 			if (!cible.isAdmin()) {
 				ts.sendNotification(sender, Affichage.rouge + "Un administrateur a kické tout le monde !" + Affichage.reset);
 				cible.deconnecter();
 			}
+		}
+			
 		
 		
 		return true;

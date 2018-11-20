@@ -10,10 +10,10 @@ public class WizzAll implements Commande{
 
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
-
+		
+		sender.showMessage(Affichage.gras + "Vous avez envoyé un Wizz à tout le monde" + Affichage.reset);
 		for (GerantDeClient cible : ts.getClientList()) {
 			if (!cible.isAdmin()) {
-				sender.showMessage(Affichage.gras + "Vous avez envoyé un Wizz à tout le monde" + Affichage.reset);
 				cible.showMessage(Affichage.gras + Wizz.getWizz() + Affichage.reset);
 				cible.showMessage(Affichage.gras + sender.getPseudo() + " vous avez reçu un Wizz !" + Affichage.reset);
 			}

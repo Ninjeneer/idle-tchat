@@ -11,8 +11,9 @@ public class KickAll implements Commande {
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
 		if (sender.isAdmin()) {
 			ts.sendNotification(sender, Affichage.rouge + "Un administrateur a kické tout le monde !" + Affichage.reset);
-			System.out.println(ts.getClientList().size());
-			for (int i = 0; i < ts.getClientList().size(); i++) {
+			
+			int nbKick = ts.getClientList().size();
+			for (int i = 0; i < nbKick; i++) {
 				if (!ts.getClientList().get(i).isAdmin()) {
 					ts.getClientList().get(i).deconnecter();
 				}

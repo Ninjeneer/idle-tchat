@@ -12,14 +12,14 @@ public class MP implements Commande {
 			return false;
 			
 		
-		for (GerantDeClient cible : ts.getClientList()) {
-			if (cible.getPseudo().equals(args[1])) {
+		for (GerantDeClient target : ts.getClientList()) {
+			if (target.getPseudo().equals(args[1])) {
 				
 				String messageFinal = "";
 				for (int i = 2; i < args.length; i++)
 					messageFinal += args[i] + " ";
 				
-				cible.showMessage(Affichage.italic + " ~ " + sender.getPseudo() + " vous a envoyé un MP : " + messageFinal + Affichage.reset);
+				target.showMessage(Affichage.italic + " ~ " + sender.getPseudo() + " vous a envoyé un MP : " + messageFinal + Affichage.reset);
 				return true;
 			}
 		}
@@ -38,7 +38,7 @@ public class MP implements Commande {
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return true;
 	}
 

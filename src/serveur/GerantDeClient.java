@@ -15,11 +15,11 @@ public class GerantDeClient implements Runnable {
 	private boolean tAlive;
 
 	// informations relatives au client
-	private String couleur;
+	private String color;
 	private String pseudo;
-	private String ip;
 	private boolean isAdmin;
 	private boolean isMuted;
+	private long lastMessage; //timestamp
 
 	/**
 	 * Crée un gérant de client
@@ -31,7 +31,7 @@ public class GerantDeClient implements Runnable {
 		this.ts = ts;
 		this.s = s;
 		this.tAlive = true;
-		this.couleur = Affichage.randomColor();
+		this.color = Affichage.randomColor();
 
 		try {
 			this.out = new PrintWriter(s.getOutputStream(), true);
@@ -56,14 +56,14 @@ public class GerantDeClient implements Runnable {
 
 		for (GerantDeClient gdc : this.ts.getClientList())
 			if (this.pseudo.equals(gdc.getPseudo()) || this.pseudo.contains(" ") || this.pseudo.length() < 3 || this.pseudo.length() > 20) {
-				this.out.println(Affichage.gras + "ERREUR : Ce pseudo est déjà utilisé ou invalide ! Quittez et recommencez."
+				this.out.println(Affichage.bold + "ERREUR : Ce pseudo est déjà utilisé ou invalide ! Quittez et recommencez."
 						+ Affichage.reset);
 				return;
 			}
 
 		// message de bienvenue
 		try {
-			this.out.println(Affichage.jaune + "   ___       _      _                      _____           _                _     \n"
+			this.out.println(Affichage.yellow + "   ___       _      _                      _____           _                _     \n"
 					+ "  |_ _|   __| |    | |     ___      o O O |_   _|   __    | |_     __ _    | |_   \n"
 					+ "   | |   / _` |    | |    / -_)    o        | |    / _|   | ' \\   / _` |   |  _|  \n"
 					+ "  |___|  \\__,_|   _|_|_   \\___|   TS__[O]  _|_|_   \\__|_  |_||_|  \\__,_|   _\\__|  \n"
@@ -81,7 +81,16 @@ public class GerantDeClient implements Runnable {
 		// boucle principale
 		while (this.tAlive) {
 			try {
-				this.ts.sendMessage(this, this.in.readLine());
+				String message = in.readLine();
+				
+				if (System.currentTimeMillis() - this.lastMessage >= 500) {
+					this.ts.sendMessage(this, message);
+				} else {
+					showMessage(Affichage.red + "ATTENTION : évitez le spam !" + Affichage.reset);
+				}
+				
+				this.lastMessage = System.currentTimeMillis();
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -121,7 +130,7 @@ public class GerantDeClient implements Runnable {
 	 * @return couleur
 	 */
 	public String getCouleur() {
-		return this.couleur;
+		return this.color;
 	}
 
 	/**
@@ -145,7 +154,7 @@ public class GerantDeClient implements Runnable {
 	/**
 	 * Déconnecte le client
 	 */
-	public void deconnecter() {
+	public void disconnect() {
 		this.tAlive = false;
 		this.ts.delGerantDeClient(this);
 	}
@@ -180,12 +189,24 @@ public class GerantDeClient implements Runnable {
 	/**
 	 * Défini si un client est muet
 	 * 
-	 * @param b
+	 * @param b muet
 	 */
 	public void setMuted(boolean b) {
 		this.isMuted = b;
 	}
 	
+	/**
+	 * Change la couleur du pseudo
+	 * @param color caractère couleur
+	 */
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+	/**
+	 * Retourne vrai si le client est encore connecté
+	 * @return client encore connecté
+	 */
 	public boolean isAlive() {
 		return this.tAlive;
 	}

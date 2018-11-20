@@ -1,45 +1,46 @@
 package commandes.admin;
 
 import commandes.Commande;
-import commandes.Wizz;
 import serveur.Affichage;
 import serveur.GerantDeClient;
 import serveur.TchatServer;
 
-public class WizzAll implements Commande{
+public class MuteAll implements Commande{
 
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
-		
 		if (!sender.isAdmin()) {
 			sender.showMessage(Affichage.red + "ERREUR : vous ne pouvez pas accéder à cette commande");
 			return true;
 		}
 		
-		sender.showMessage(Affichage.bold + "Vous avez envoyé un Wizz à tout le monde" + Affichage.reset);
-		for (GerantDeClient target : ts.getClientList()) {
+		for (GerantDeClient target : ts.getClientList())
 			if (!target.isAdmin()) {
-				target.showMessage(Affichage.bold + Wizz.getWizz() + Affichage.reset);
-				target.showMessage(Affichage.bold + sender.getPseudo() + " vous avez reçu un Wizz !" + Affichage.reset);
+				target.setMuted(true);
+				target.showMessage(Affichage.red + "Un administrateur vous a mute" + Affichage.reset);
 			}
-		}
-			
+		
+		ts.sendNotification(sender, Affichage.red + "Un administrateur a mute tous les clients" + Affichage.reset);
 		return true;
+
 	}
 
 	@Override
 	public boolean isDisplayable() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String getError() {
-		return "USAGE : /wizzall";
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public String getDescription() {
-		return "envoie un wizz à tout les clients";
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -5,7 +5,7 @@ import serveur.TchatServer;
 
 public interface Commande {
 	boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args);
-	boolean estAffichable();
+	boolean isDisplayable();
 	String getError();
 	String getDescription();
 }

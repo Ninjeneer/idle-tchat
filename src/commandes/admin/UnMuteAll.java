@@ -1,12 +1,11 @@
 package commandes.admin;
 
 import commandes.Commande;
-import commandes.Wizz;
 import serveur.Affichage;
 import serveur.GerantDeClient;
 import serveur.TchatServer;
 
-public class WizzAll implements Commande{
+public class UnMuteAll implements Commande{
 
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
@@ -16,14 +15,14 @@ public class WizzAll implements Commande{
 			return true;
 		}
 		
-		sender.showMessage(Affichage.bold + "Vous avez envoyé un Wizz à tout le monde" + Affichage.reset);
-		for (GerantDeClient target : ts.getClientList()) {
+
+		for (GerantDeClient target : ts.getClientList())
 			if (!target.isAdmin()) {
-				target.showMessage(Affichage.bold + Wizz.getWizz() + Affichage.reset);
-				target.showMessage(Affichage.bold + sender.getPseudo() + " vous avez reçu un Wizz !" + Affichage.reset);
+				target.setMuted(false);
+				target.showMessage(Affichage.red + "Un administrateur vous a mute" + Affichage.reset);
 			}
-		}
-			
+		
+		ts.sendNotification(sender, Affichage.red + "Un administrateur a mute tous les clients" + Affichage.reset);
 		return true;
 	}
 
@@ -34,12 +33,12 @@ public class WizzAll implements Commande{
 
 	@Override
 	public String getError() {
-		return "USAGE : /wizzall";
+		return "USAGE : /unmuteall";
 	}
 
 	@Override
 	public String getDescription() {
-		return "envoie un wizz à tout les clients";
+		return "unmute tous les clients";
 	}
 
 }

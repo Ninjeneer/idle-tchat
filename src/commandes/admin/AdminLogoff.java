@@ -14,14 +14,14 @@ public class AdminLogoff implements Commande {
 		
 		if (sender.isAdmin()) {
 			sender.setAdmin(false);
-			sender.showMessage(Affichage.vert + "Vous n'êtes plus administrateur." + Affichage.reset);
+			sender.showMessage(Affichage.green + "Vous n'êtes plus administrateur." + Affichage.reset);
 		}
 			
 		return true;
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return false;
 	}
 

@@ -13,24 +13,28 @@ public class Mute implements Commande{
 		if (args.length != 2)
 			return false;
 		
-		if (sender.isAdmin()) {
-			for (GerantDeClient cible : ts.getClientList())
-				if (args[1].equals(cible.getPseudo())) {
-					cible.showMessage(Affichage.rouge + "Vous avez été mute par un administrateur" + Affichage.reset);
-					ts.sendNotification(sender, Affichage.rouge + cible.getPseudo() + " a été mute par un administrateur" + Affichage.reset);
-					sender.showMessage(Affichage.rouge + "Vous avez mute " + cible.getPseudo() + Affichage.reset );
-					cible.setMuted(true);
-					
-					
-					
-					return true;
-				}
-					
-		} else {
-			return false;
+		if (!sender.isAdmin()) {
+			sender.showMessage(Affichage.red + "ERREUR : vous ne pouvez pas accéder à cette commande");
+			return true;
 		}
 		
-		return false;
+		
+		for (GerantDeClient target : ts.getClientList())
+			if (args[1].equals(target.getPseudo())) {
+				target.showMessage(Affichage.red + "Vous avez été mute par un administrateur" + Affichage.reset);
+				ts.sendNotification(sender, Affichage.red + target.getPseudo() + " a été mute par un administrateur" + Affichage.reset);
+				sender.showMessage(Affichage.red + "Vous avez mute " + target.getPseudo() + Affichage.reset );
+				target.setMuted(true);
+				
+				
+				
+				return true;
+			}
+					
+		
+		// aucun client trouvé
+		sender.showMessage(Affichage.red + "ERREUR : ce client n'existe pas" + Affichage.reset);
+		return true;
 	}
 
 	@Override
@@ -44,7 +48,7 @@ public class Mute implements Commande{
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return false;
 	}
 

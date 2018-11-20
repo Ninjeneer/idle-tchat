@@ -11,12 +11,20 @@ public class Nick implements Commande {
 		if (args.length != 2)
 			return false;
 		
-		if (args[1].length() > 20)
+		if (args[1].length() < 3 || args[1].length() > 20)
 			return false;
 		else {
-			ts.sendNotification(sender, Affichage.gris + sender.getPseudo() + " a modifié son pseudo pour : " + args[1] + Affichage.reset);
+			// test si le pseudo est déjà utilisé
+			for (GerantDeClient gdc : ts.getClientList())
+				if (gdc.getPseudo().equals(args[1])) {
+					sender.showMessage(Affichage.red + "ERREUR : ce pseudo est déjà utilisé !" + Affichage.reset);
+					return true;
+				}
+			
+			//pseudo valide et disponible
+			ts.sendNotification(sender, Affichage.grey + sender.getPseudo() + " a modifié son pseudo pour : " + args[1] + Affichage.reset);
 			sender.setPseudo(args[1]);
-			sender.showMessage(Affichage.gras + Affichage.gris + "Vous avez changé de pseudo !" + Affichage.reset);
+			sender.showMessage(Affichage.bold + Affichage.grey + "Vous avez changé de pseudo !" + Affichage.reset);
 			return true;
 		}
 	}
@@ -32,7 +40,7 @@ public class Nick implements Commande {
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return true;
 	}
 

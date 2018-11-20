@@ -21,6 +21,8 @@ public class Mute implements Commande{
 					sender.showMessage(Affichage.rouge + "Vous avez mute " + cible.getPseudo() + Affichage.reset );
 					cible.setMuted(true);
 					
+					
+					
 					return true;
 				}
 					

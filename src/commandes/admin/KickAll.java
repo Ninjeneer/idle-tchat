@@ -9,16 +9,20 @@ public class KickAll implements Commande {
 
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
-		ts.sendNotification(sender, Affichage.rouge + "Un administrateur a kické tout le monde !" + Affichage.reset);
-		for (GerantDeClient cible : ts.getClientList()) {
-			if (!cible.isAdmin()) {
-				cible.deconnecter();
+		if (sender.isAdmin()) {
+			ts.sendNotification(sender, Affichage.rouge + "Un administrateur a kické tout le monde !" + Affichage.reset);
+			System.out.println(ts.getClientList().size());
+			for (GerantDeClient cible : ts.getClientList()) {
+				if (!cible.isAdmin()) {
+					cible.deconnecter();
+				}
 			}
+			
+			return true;
 		}
 			
-		
-		
-		return true;
+
+		return false;
 	}
 
 	@Override

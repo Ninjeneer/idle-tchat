@@ -23,6 +23,7 @@ import commandes.admin.Kick;
 import commandes.admin.Mute;
 import commandes.admin.Say;
 import commandes.admin.UnMute;
+import commandes.admin.WizzAll;
 
 public class TchatServer {
 
@@ -65,6 +66,7 @@ public class TchatServer {
 		addCommande("say", new Say());
 		addCommande("adminhelp", new AdminHelp());
 		addCommande("getinfo", new GetInfo());
+		addCommande("wizzall", new WizzAll());
 
 		while (true) {
 			// attente du client

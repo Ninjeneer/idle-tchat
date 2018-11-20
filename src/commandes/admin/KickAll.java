@@ -21,20 +21,17 @@ public class KickAll implements Commande {
 
 	@Override
 	public boolean estAffichable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String getError() {
-		// TODO Auto-generated method stub
-		return null;
+		return "USAGE : /kickall";
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "kick tous les clients";
 	}
 
 }

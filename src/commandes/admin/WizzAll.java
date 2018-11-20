@@ -24,20 +24,17 @@ public class WizzAll implements Commande{
 
 	@Override
 	public boolean estAffichable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String getError() {
-		// TODO Auto-generated method stub
-		return null;
+		return "USAGE : /wizzall";
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "envoie un wizz à tout les clients";
 	}
 
 }

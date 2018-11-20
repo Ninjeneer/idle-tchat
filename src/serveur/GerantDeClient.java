@@ -55,8 +55,8 @@ public class GerantDeClient implements Runnable {
 		}
 
 		for (GerantDeClient gdc : this.ts.getClientList())
-			if (this.pseudo.equals(gdc.getPseudo())) {
-				this.out.println(Affichage.gras + "ERREUR : Ce pseudo est déjà utilisé ! Quittez et recommencez."
+			if (this.pseudo.equals(gdc.getPseudo()) || this.pseudo.contains(" ")) {
+				this.out.println(Affichage.gras + "ERREUR : Ce pseudo est déjà utilisé ou invalide ! Quittez et recommencez."
 						+ Affichage.reset);
 				return;
 			}
@@ -184,6 +184,10 @@ public class GerantDeClient implements Runnable {
 	 */
 	public void setMuted(boolean b) {
 		this.isMuted = b;
+	}
+	
+	public boolean isAlive() {
+		return this.tAlive;
 	}
 
 }

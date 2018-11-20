@@ -110,7 +110,7 @@ public class TchatServer {
 		} else {
 			// envoi du message
 			for (GerantDeClient gdc : this.clientList) {
-				if (gdc != sender && !sender.isMuted())
+				if (gdc != sender && !sender.isMuted() && sender.isAlive())
 					gdc.getPrintwriter().println(sender.getCouleur() + sender.getPseudo() + ": " + "\033[0m" + s);
 			}
 		}

@@ -16,8 +16,8 @@ public class Kick implements Commande{
 		if (sender.isAdmin()) {
 			for (GerantDeClient cible : ts.getClientList())
 				if (args[1].equals(cible.getPseudo())) {
-					cible.showMessage(Affichage.gras + Affichage.rouge + "Vous avez été kick par " + sender.getPseudo() + Affichage.reset);
-					ts.sendNotification(sender, Affichage.gras + Affichage.rouge + cible.getPseudo() + " a été kické par " + sender.getPseudo() + Affichage.reset);
+					cible.showMessage(Affichage.gras + Affichage.rouge + "Vous avez été kick par un administrateur" + Affichage.reset);
+					ts.sendNotification(sender, Affichage.gras + Affichage.rouge + cible.getPseudo() + " a été kické par un administrateur" + Affichage.reset);
 					sender.showMessage(Affichage.rouge + "Vous avez kick " + cible.getPseudo() + Affichage.reset );
 					cible.deconnecter();
 					

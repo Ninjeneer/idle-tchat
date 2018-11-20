@@ -12,9 +12,9 @@ public class KickAll implements Commande {
 		if (sender.isAdmin()) {
 			ts.sendNotification(sender, Affichage.rouge + "Un administrateur a kické tout le monde !" + Affichage.reset);
 			System.out.println(ts.getClientList().size());
-			for (GerantDeClient cible : ts.getClientList()) {
-				if (!cible.isAdmin()) {
-					cible.deconnecter();
+			for (int i = 0; i < ts.getClientList().size(); i++) {
+				if (!ts.getClientList().get(i).isAdmin()) {
+					ts.getClientList().get(i).deconnecter();
 				}
 			}
 			

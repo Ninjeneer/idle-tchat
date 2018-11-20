@@ -16,8 +16,8 @@ public class Mute implements Commande{
 		if (sender.isAdmin()) {
 			for (GerantDeClient cible : ts.getClientList())
 				if (args[1].equals(cible.getPseudo())) {
-					cible.showMessage(Affichage.gras + Affichage.rouge + "Vous avez été mute par " + sender.getPseudo() + Affichage.reset);
-					ts.sendNotification(sender, Affichage.gras + Affichage.rouge + cible.getPseudo() + " a été mute par " + sender.getPseudo() + Affichage.reset);
+					cible.showMessage(Affichage.rouge + "Vous avez été mute par un administrateur" + Affichage.reset);
+					ts.sendNotification(sender, Affichage.rouge + cible.getPseudo() + " a été mute par un administrateur" + Affichage.reset);
 					sender.showMessage(Affichage.rouge + "Vous avez mute " + cible.getPseudo() + Affichage.reset );
 					cible.setMuted(true);
 					

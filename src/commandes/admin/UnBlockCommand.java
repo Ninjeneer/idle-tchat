@@ -5,7 +5,7 @@ import serveur.Affichage;
 import serveur.GerantDeClient;
 import serveur.TchatServer;
 
-public class BlockCommand implements Commande{
+public class UnBlockCommand implements Commande{
 
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
@@ -19,9 +19,9 @@ public class BlockCommand implements Commande{
 		
 		for (GerantDeClient target : ts.getClientList())
 			if (target.getPseudo().equals(args[1])) {
-				target.setCommandAllowed(false);
-				sender.showMessage(Affichage.red + "Vous avez bloqué les commandes de " + target.getPseudo() + Affichage.reset);;
-				target.showMessage(Affichage.red + "Un administrateur a bloqué vos commandes !" + Affichage.reset);
+				target.setCommandAllowed(true);
+				sender.showMessage(Affichage.red + "Vous avez débloqué les commandes de " + target.getPseudo() + Affichage.reset);;
+				target.showMessage(Affichage.red + "Un administrateur a débloqué vos commandes !" + Affichage.reset);
 				
 				return true;
 			}

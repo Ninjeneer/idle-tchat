@@ -46,7 +46,7 @@ public class Client {
 			out.println(pseudo);
 			
 			// boucle principale
-			String message = "";
+			String message = ""; 
 			
 			CompletableFuture.runAsync(() -> 
 				{

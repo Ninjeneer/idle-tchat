@@ -19,12 +19,14 @@ import commandes.Wizz;
 import commandes.admin.AdminHelp;
 import commandes.admin.AdminLogin;
 import commandes.admin.AdminLogoff;
+import commandes.admin.BlockCommand;
 import commandes.admin.GetInfo;
 import commandes.admin.Kick;
 import commandes.admin.KickAll;
 import commandes.admin.Mute;
 import commandes.admin.MuteAll;
 import commandes.admin.Say;
+import commandes.admin.UnBlockCommand;
 import commandes.admin.UnMute;
 import commandes.admin.UnMuteAll;
 import commandes.admin.WizzAll;
@@ -34,6 +36,7 @@ public class TchatServer {
 	private ServerSocket ss;
 	private ArrayList<GerantDeClient> clientList;
 	private HashMap<String, Commande> commandListe;
+	private long lastConnexion;
 
 	/**
 	 * Crée un serveur de tchat
@@ -77,12 +80,15 @@ public class TchatServer {
 		addCommand("kickall", new KickAll());
 		addCommand("muteall", new MuteAll());
 		addCommand("unmuteall", new UnMuteAll());
+		addCommand("blockcommand", new BlockCommand());
+		addCommand("unblockcommand", new UnBlockCommand());
 
 		while (true) {
 			// attente du client
 			Socket s = null;
 			try {
 				s = ss.accept();
+					
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -117,14 +123,20 @@ public class TchatServer {
 				sender.showMessage(Affichage.bold + "ERREUR : cette commande n'existe pas" + Affichage.reset);
 				return;
 			}
+			
+			if (!sender.isComandAllowed()) {
+				sender.showMessage(Affichage.red + "ERREUR : vos commandes ont été bloquées par un administrateur !" + Affichage.reset);
+				return;
+			}
 
 			// si la commande est mal utilisée
-			if (!this.commandListe.get(trigger).onCommand(this, sender, s.split(" ")))
+			if (!this.commandListe.get(trigger).onCommand(this, sender, s.split(" ")) && sender.isComandAllowed())
 				sender.showMessage(Affichage.bold + this.commandListe.get(trigger).getError() + Affichage.reset);
+
 		} else {
 			// envoi du message
 			for (GerantDeClient gdc : this.clientList) {
-				if (gdc != sender && !sender.isMuted() && sender.isAlive() && !s.contains("\\^[["))
+				if (gdc != sender && !sender.isMuted() && sender.isAlive())
 					gdc.getPrintwriter().println(sender.getCouleur() + sender.getPseudo() + ": " + "\033[0m" + s);
 			}
 		}

@@ -10,7 +10,7 @@ public class ChangerCouleur implements Commande {
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
 		sender.setColor(Affichage.randomColor());
 		sender.showMessage(sender.getCouleur() + "Vous avez changé de couleur ! :D" + Affichage.reset);
-		return false;
+		return true;
 	}
 
 	@Override

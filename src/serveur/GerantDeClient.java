@@ -19,11 +19,9 @@ public class GerantDeClient implements Runnable {
 	private String pseudo;
 	private boolean isAdmin;
 	private boolean isMuted;
-<<<<<<< HEAD
 	private boolean isCommandAllowed;
-=======
 	private long lastMessage; //timestamp
->>>>>>> branch 'master' of https://LittlePinkCookie@bitbucket.org/LittlePinkCookie/projet-reseau.git
+
 
 	/**
 	 * Crée un gérant de client
@@ -35,6 +33,7 @@ public class GerantDeClient implements Runnable {
 		this.ts = ts;
 		this.s = s;
 		this.tAlive = true;
+		this.isCommandAllowed = true;
 		this.color = Affichage.randomColor();
 
 		try {
@@ -43,6 +42,7 @@ public class GerantDeClient implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 	/**
@@ -64,6 +64,16 @@ public class GerantDeClient implements Runnable {
 						+ Affichage.reset);
 				return;
 			}
+		
+		
+		// bloque les multiples connexions par IP
+		for (int i = 0; i < this.ts.getClientList().size(); i++)
+			if (this.s.getInetAddress().getHostAddress().equals(this.ts.getClientList().get(i).getSocket().getInetAddress().getHostAddress())) {
+				this.out.println(Affichage.red + "ERREUR : un compte utilisant cette adresse IP est déjà connecté !" + Affichage.reset);
+				return;
+			}
+				
+		
 
 		// message de bienvenue
 		try {

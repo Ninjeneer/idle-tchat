@@ -14,14 +14,14 @@ public class AdminLogin implements Commande {
 		
 		if (args[1].equals("idle8003")) {
 			sender.setAdmin(true);
-			sender.showMessage(Affichage.vert + "Vous êtes désormais administrateur. Faites /adminlogoff pour vous déconnecter." + Affichage.reset);
+			sender.showMessage(Affichage.green + "Vous êtes désormais administrateur. Faites /adminlogoff pour vous déconnecter." + Affichage.reset);
 		}
 			
 		return true;
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return false;
 	}
 

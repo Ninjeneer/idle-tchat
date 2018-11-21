@@ -21,11 +21,11 @@ public class Wizz implements Commande {
 		}
 			
 		
-		for (GerantDeClient cible : ts.getClientList()) {
-			if (cible.getPseudo().equals(args[1])) {
-				sender.showMessage(Affichage.gras + "Vous avez envoyé un Wizz à " + cible.getPseudo() + Affichage.reset);
-				cible.showMessage(Affichage.gras + Wizz.getWizz() + Affichage.reset);
-				cible.showMessage(Affichage.gras + sender.getPseudo() + " vous a envoyé un Wizz !" + Affichage.reset);
+		for (GerantDeClient target : ts.getClientList()) {
+			if (target.getPseudo().equals(args[1])) {
+				sender.showMessage(Affichage.bold + "Vous avez envoyé un Wizz à " + target.getPseudo() + Affichage.reset);
+				target.showMessage(Affichage.bold + Wizz.getWizz() + Affichage.reset);
+				target.showMessage(Affichage.bold + sender.getPseudo() + " vous a envoyé un Wizz !" + Affichage.reset);
 				
 				return true;
 			}
@@ -46,7 +46,7 @@ public class Wizz implements Commande {
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return true;
 	}
 

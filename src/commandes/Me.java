@@ -16,8 +16,8 @@ public class Me implements Commande {
 		for (int i = 1; i < args.length; i++)
 			messageFinal += args[i] + " ";
 		
-		ts.sendNotification(sender, Affichage.italic + Affichage.gris + "* " + sender.getPseudo() + " " + messageFinal + Affichage.reset);
-		sender.showMessage(Affichage.italic + Affichage.gris + "* " + sender.getPseudo() + " " + messageFinal + Affichage.reset);
+		ts.sendNotification(sender, Affichage.italic + Affichage.grey + "* " + sender.getPseudo() + " " + messageFinal + Affichage.reset);
+		sender.showMessage(Affichage.italic + Affichage.grey + "* " + sender.getPseudo() + " " + messageFinal + Affichage.reset);
 			
 		return true;
 	}
@@ -33,7 +33,7 @@ public class Me implements Commande {
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return true;
 	}
 

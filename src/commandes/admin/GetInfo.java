@@ -12,25 +12,29 @@ public class GetInfo implements Commande{
 		if (args.length != 2)
 			return false;
 		
-		if (sender.isAdmin()) {
-			for (GerantDeClient cible : ts.getClientList())
-				if (args[1].equals(cible.getPseudo())) {
-					sender.showMessage(Affichage.gras + "Informations sur " + cible.getPseudo() + " :");
-					sender.showMessage("\t IP : " + cible.getSocket().getInetAddress());
-					sender.showMessage("\t Hostname : " + cible.getSocket().getInetAddress().getHostName());
-					
-					return true;
-				}
-					
-		} else {
-			return false;
+		if (!sender.isAdmin()) {
+			sender.showMessage(Affichage.red + "ERREUR : vous ne pouvez pas accéder à cette commande");
+			return true;
 		}
 		
-		return false;
+
+		for (GerantDeClient target : ts.getClientList())
+			if (args[1].equals(target.getPseudo())) {
+				sender.showMessage(Affichage.bold + "Informations sur " + target.getPseudo() + " :");
+				sender.showMessage("\t IP : " + target.getSocket().getInetAddress());
+				sender.showMessage("\t Hostname : " + target.getSocket().getInetAddress().getHostName());
+				
+				return true;
+			}
+					
+
+		// aucun client trouvé
+		sender.showMessage(Affichage.red + "ERREUR : ce client n'existe pas" + Affichage.reset);
+		return true;
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return false;
 	}
 

@@ -8,18 +8,22 @@ public class Who implements Commande{
 
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
-		sender.showMessage(Affichage.gras + "Liste des clients connectés (" + ts.getClientList().size() + "): " + Affichage.reset);
-		for (GerantDeClient client : ts.getClientList())
+		sender.showMessage(Affichage.bold + "Liste des clients connectés (" + ts.getClientList().size() + "): " + Affichage.reset);
+		for (GerantDeClient client : ts.getClientList()) {
+			String connecte = "\t -> " + client.getCouleur() +  client.getPseudo() + Affichage.red;
+			
 			if (client.isMuted())
-				sender.showMessage("\t -> " + client.getCouleur() +  client.getPseudo() + Affichage.rouge + "(muted)" + Affichage.reset);
+				sender.showMessage(connecte + " (muted)" + Affichage.reset);
 			else
-				sender.showMessage("\t -> " + client.getCouleur() +  client.getPseudo() + Affichage.reset);
+				sender.showMessage(connecte + Affichage.reset);
+		}
+			
 		
 		return true;
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return true;
 	}
 

@@ -12,13 +12,17 @@ public class Say implements Commande {
 		if (args.length < 2)
 			return false;
 			
+		if (!sender.isAdmin()) {
+			sender.showMessage(Affichage.red + "ERREUR : vous ne pouvez pas accéder à cette commande");
+			return true;
+		}
 		
 				
 		String messageFinal = "";
 		for (int i = 1; i < args.length; i++)
 			messageFinal += args[i] + " ";
 		
-		ts.sendNotification(sender, Affichage.gras + messageFinal + Affichage.reset);
+		ts.sendNotification(sender, Affichage.bold + messageFinal + Affichage.reset);
 		return true;
 	}
 
@@ -33,7 +37,7 @@ public class Say implements Commande {
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return false;
 	}
 

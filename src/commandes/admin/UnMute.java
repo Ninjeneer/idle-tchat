@@ -13,22 +13,26 @@ public class UnMute implements Commande{
 		if (args.length != 2)
 			return false;
 		
-		if (sender.isAdmin()) {
-			for (GerantDeClient cible : ts.getClientList())
-				if (args[1].equals(cible.getPseudo())) {
-					cible.showMessage(Affichage.gras + Affichage.rouge + "Vous avez été unmute par " + sender.getPseudo() + Affichage.reset);
-					ts.sendNotification(sender, Affichage.gras + Affichage.rouge + cible.getPseudo() + " a été unmute par " + sender.getPseudo() + Affichage.reset);
-					sender.showMessage(Affichage.rouge + "Vous avez unmute " + cible.getPseudo() + Affichage.reset );
-					cible.setMuted(false);
-					
-					return true;
-				}
-					
-		} else {
-			return false;
+		if (!sender.isAdmin()) {
+			sender.showMessage(Affichage.red + "ERREUR : vous ne pouvez pas accéder à cette commande");
+			return true;
 		}
 		
-		return false;
+		
+		for (GerantDeClient target : ts.getClientList())
+			if (args[1].equals(target.getPseudo())) {
+				target.showMessage(Affichage.bold + Affichage.red + "Vous avez été unmute par " + sender.getPseudo() + Affichage.reset);
+				ts.sendNotification(sender, Affichage.bold + Affichage.red + target.getPseudo() + " a été unmute par " + sender.getPseudo() + Affichage.reset);
+				sender.showMessage(Affichage.red + "Vous avez unmute " + target.getPseudo() + Affichage.reset );
+				target.setMuted(false);
+				
+				return true;
+			}
+		
+		//aucun client trouvé
+		sender.showMessage(Affichage.red + "ERREUR : ce client n'existe pas" + Affichage.reset);
+		return true;
+
 	}
 
 	@Override
@@ -42,7 +46,7 @@ public class UnMute implements Commande{
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return false;
 	}
 

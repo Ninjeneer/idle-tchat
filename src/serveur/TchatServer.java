@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import commandes.ChangerCouleur;
 import commandes.Commande;
 import commandes.Coucou;
 import commandes.Help;
@@ -22,15 +23,17 @@ import commandes.admin.GetInfo;
 import commandes.admin.Kick;
 import commandes.admin.KickAll;
 import commandes.admin.Mute;
+import commandes.admin.MuteAll;
 import commandes.admin.Say;
 import commandes.admin.UnMute;
+import commandes.admin.UnMuteAll;
 import commandes.admin.WizzAll;
 
 public class TchatServer {
 
 	private ServerSocket ss;
 	private ArrayList<GerantDeClient> clientList;
-	private HashMap<String, Commande> commandeListe;
+	private HashMap<String, Commande> commandListe;
 
 	/**
 	 * Crée un serveur de tchat
@@ -48,27 +51,32 @@ public class TchatServer {
 		}
 
 		this.clientList = new ArrayList<GerantDeClient>();
-		this.commandeListe = new HashMap<String, Commande>();
+		this.commandListe = new HashMap<String, Commande>();
 
 		// ajout des commandes
-		addCommande("coucou", new Coucou());
-		addCommande("mp", new MP());
-		addCommande("wizz", new Wizz());
-		addCommande("help", new Help());
-		addCommande("nick", new Nick());
-		addCommande("quit", new Quit());
-		addCommande("me", new Me());
-		addCommande("kick", new Kick());
-		addCommande("adminlogin", new AdminLogin());
-		addCommande("adminlogoff", new AdminLogoff());
-		addCommande("who", new Who());
-		addCommande("mute", new Mute());
-		addCommande("unmute", new UnMute());
-		addCommande("say", new Say());
-		addCommande("adminhelp", new AdminHelp());
-		addCommande("getinfo", new GetInfo());
-		addCommande("wizzall", new WizzAll());
-		addCommande("kickall", new KickAll());
+		addCommand("coucou", new Coucou());
+		addCommand("mp", new MP());
+		addCommand("wizz", new Wizz());
+		addCommand("help", new Help());
+		addCommand("nick", new Nick());
+		addCommand("quit", new Quit());
+		addCommand("me", new Me());
+		addCommand("who", new Who());
+		addCommand("changercouleur", new ChangerCouleur());
+		
+		// commandes admin
+		addCommand("kick", new Kick());
+		addCommand("adminlogin", new AdminLogin());
+		addCommand("adminlogoff", new AdminLogoff());
+		addCommand("mute", new Mute());
+		addCommand("unmute", new UnMute());
+		addCommand("say", new Say());
+		addCommand("adminhelp", new AdminHelp());
+		addCommand("getinfo", new GetInfo());
+		addCommand("wizzall", new WizzAll());
+		addCommand("kickall", new KickAll());
+		addCommand("muteall", new MuteAll());
+		addCommand("unmuteall", new UnMuteAll());
 
 		while (true) {
 			// attente du client
@@ -105,14 +113,14 @@ public class TchatServer {
 				trigger = s.substring(1);
 
 			// si la commande n'existe pas
-			if (!this.commandeListe.containsKey(trigger)) {
-				sender.showMessage(Affichage.gras + "ERREUR : cette commande n'existe pas" + Affichage.reset);
+			if (!this.commandListe.containsKey(trigger)) {
+				sender.showMessage(Affichage.bold + "ERREUR : cette commande n'existe pas" + Affichage.reset);
 				return;
 			}
 
 			// si la commande est mal utilisée
-			if (!this.commandeListe.get(trigger).onCommand(this, sender, s.split(" ")))
-				sender.showMessage(Affichage.gras + this.commandeListe.get(trigger).getError() + Affichage.reset);
+			if (!this.commandListe.get(trigger).onCommand(this, sender, s.split(" ")))
+				sender.showMessage(Affichage.bold + this.commandListe.get(trigger).getError() + Affichage.reset);
 		} else {
 			// envoi du message
 			for (GerantDeClient gdc : this.clientList) {
@@ -144,7 +152,7 @@ public class TchatServer {
 	public void addGerantDeClient(GerantDeClient gdc) {
 		sendNotification(gdc, ">>> " + gdc.getPseudo() + "(" + gdc.getSocket().getInetAddress()
 				+ ") vient de rejoindre le serveur :D");
-		gdc.showMessage(Affichage.gras + "Tapez /help [commande] afin d'obtenir de l'aide" + Affichage.reset);
+		gdc.showMessage(Affichage.bold + "Tapez /help [commande] afin d'obtenir de l'aide" + Affichage.reset);
 		this.clientList.add(gdc);
 	}
 
@@ -164,8 +172,8 @@ public class TchatServer {
 	 * @param trigger commande utilisateur
 	 * @param cmd     commande déclenchée
 	 */
-	private void addCommande(String trigger, Commande cmd) {
-		this.commandeListe.put(trigger, cmd);
+	private void addCommand(String trigger, Commande cmd) {
+		this.commandListe.put(trigger, cmd);
 	}
 
 	/**
@@ -183,7 +191,7 @@ public class TchatServer {
 	 * @return liste des commandes
 	 */
 	public HashMap<String, Commande> getCommandeList() {
-		return this.commandeListe;
+		return this.commandListe;
 	}
 
 	public static void main(String[] args) {

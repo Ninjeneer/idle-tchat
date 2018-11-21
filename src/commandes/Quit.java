@@ -7,7 +7,7 @@ public class Quit implements Commande {
 
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
-		sender.deconnecter();
+		sender.disconnect();
 		return true;
 	}
 
@@ -22,7 +22,7 @@ public class Quit implements Commande {
 	}
 
 	@Override
-	public boolean estAffichable() {
+	public boolean isDisplayable() {
 		return true;
 	}
 

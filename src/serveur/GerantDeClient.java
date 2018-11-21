@@ -20,6 +20,7 @@ public class GerantDeClient implements Runnable {
 	private String ip;
 	private boolean isAdmin;
 	private boolean isMuted;
+	private boolean isCommandAllowed;
 
 	/**
 	 * Crée un gérant de client
@@ -188,6 +189,14 @@ public class GerantDeClient implements Runnable {
 	
 	public boolean isAlive() {
 		return this.tAlive;
+	}
+	
+	public boolean isComandAllowed() {
+		return this.isCommandAllowed;
+	}
+	
+	public void setCommandAllowed(boolean b) {
+		this.isCommandAllowed = b;
 	}
 
 }

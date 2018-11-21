@@ -13,7 +13,7 @@ public class Say implements Commande {
 			return false;
 			
 		if (!sender.isAdmin()) {
-			sender.showMessage(Affichage.red + "ERREUR : vous ne pouvez pas accéder à cette commande");
+			sender.showMessage(Affichage.red + "ERREUR : vous ne pouvez pas accéder à cette commande" + Affichage.reset);
 			return true;
 		}
 		

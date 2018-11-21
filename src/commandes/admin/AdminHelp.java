@@ -12,7 +12,7 @@ public class AdminHelp implements Commande {
 	@Override
 	public boolean onCommand(TchatServer ts, GerantDeClient sender, String[] args) {
 		if (!sender.isAdmin()) {
-			sender.showMessage(Affichage.red + "ERREUR : vous ne pouvez pas accéder à cette commande");
+			sender.showMessage(Affichage.red + "ERREUR : vous ne pouvez pas accéder à cette commande" + Affichage.reset);
 			return true;
 		}
 		

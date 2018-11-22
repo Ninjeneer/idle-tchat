@@ -81,7 +81,7 @@ public class TchatServer {
 		addCommand("muteall", new MuteAll());
 		addCommand("unmuteall", new UnMuteAll());
 		addCommand("blockcommand", new BlockCommand());
-		addCommand("unblockcommand", new UnBlockCommand());
+		addCommand("unblockcommand", new UnBlockCommand()); 
 
 		while (true) {
 			// attente du client

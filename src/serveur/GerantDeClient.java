@@ -73,6 +73,8 @@ public class GerantDeClient implements Runnable {
 					this.out.println(Affichage.red + "ERREUR : un compte utilisant cette adresse IP est déjà connecté !" + Affichage.reset);
 					return;
 				}
+		
+		
 				
 		
 

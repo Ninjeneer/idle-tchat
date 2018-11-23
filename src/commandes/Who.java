@@ -18,8 +18,10 @@ public class Who implements Commande{
 				connecte += Affichage.red + " (muted)";
 
 			connecte += Affichage.reset;
-			sender.showMessage(connecte);
+			
 		}
+		
+		sender.showMessage(connecte);
 			
 		
 		return true;

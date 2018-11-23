@@ -33,6 +33,7 @@ import commandes.admin.WizzAll;
 
 public class TchatServer {
 
+	public static final boolean debug_mode = true;
 	private ServerSocket ss;
 	private ArrayList<GerantDeClient> clientList;
 	private HashMap<String, Commande> commandListe;
@@ -205,6 +206,7 @@ public class TchatServer {
 	public HashMap<String, Commande> getCommandeList() {
 		return this.commandListe;
 	}
+	
 
 	public static void main(String[] args) {
 		new TchatServer(8003);

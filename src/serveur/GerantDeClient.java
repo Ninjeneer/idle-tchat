@@ -67,11 +67,12 @@ public class GerantDeClient implements Runnable {
 		
 		
 		// bloque les multiples connexions par IP
-		for (int i = 0; i < this.ts.getClientList().size(); i++)
-			if (this.s.getInetAddress().getHostAddress().equals(this.ts.getClientList().get(i).getSocket().getInetAddress().getHostAddress())) {
-				this.out.println(Affichage.red + "ERREUR : un compte utilisant cette adresse IP est déjà connecté !" + Affichage.reset);
-				return;
-			}
+		if (!TchatServer.debug_mode)
+			for (int i = 0; i < this.ts.getClientList().size(); i++)
+				if (this.s.getInetAddress().getHostAddress().equals(this.ts.getClientList().get(i).getSocket().getInetAddress().getHostAddress())) {
+					this.out.println(Affichage.red + "ERREUR : un compte utilisant cette adresse IP est déjà connecté !" + Affichage.reset);
+					return;
+				}
 				
 		
 

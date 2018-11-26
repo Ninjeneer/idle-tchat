@@ -1,6 +1,8 @@
 package serveur;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -137,8 +139,10 @@ public class TchatServer {
 		} else {
 			// envoi du message
 			for (GerantDeClient gdc : this.clientList) {
-				if (gdc != sender && !sender.isMuted() && sender.isAlive())
+				if (gdc != sender && !sender.isMuted() && sender.isAlive()) 
 					gdc.getPrintwriter().println(sender.getCouleur() + sender.getPseudo() + ": " + "\033[0m" + s);
+				
+					
 			}
 		}
 

@@ -48,6 +48,7 @@ public class ClientManager {
 					String message;
 					while(true) {
 						message = in.readLine();
+						message.replace("\\033[0;33m", "");
 						
 						for (String line : message.split("\n"))
 							this.ctrl.getWindow().newMessage(line);

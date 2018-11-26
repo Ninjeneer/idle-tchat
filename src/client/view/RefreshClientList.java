@@ -20,9 +20,7 @@ public class RefreshClientList implements Runnable {
 	public void run() {
 		
 		while (true) {
-			System.out.println(this.ctrl.getClientManager().isConnected());
 			if (this.ctrl.getClientManager().isConnected()) {
-				System.out.println("lol");
 				try {
 					this.ctrl.getClientManager().sendMessage("/who");
 					String rawConnected = this.ctrl.getClientManager().getInputStream().readLine();

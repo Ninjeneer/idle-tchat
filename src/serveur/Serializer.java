@@ -1,50 +1,60 @@
-package tests;
+package serveur;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class Test {
+import tests.Lol;
 
-	public static void main(String[] args) {
-		
+public class Serializer {
+
+	public static String serialize(Object o) {
 		
 		try {
-			
 			//Serialization
 			byte[] serialized;
 			String output = "";
-			Lol test = new Lol();
 			
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
 
 			
-			oos.writeObject(test);
+			oos.writeObject(o);
 			serialized = baos.toByteArray();
 			
 			for (byte b : serialized)
 				output += b + " ";
 			
-			System.out.println(output);
-			
 			oos.close();
 			
-			
-//			//Deserialization		
-			byte[] input = new byte[output.split(" ").length];
+			return output;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public static Object deserialize(String serializedInput) {
+		
+		if (serializedInput == null)
+			return null;
+		
+		try {
+			//Deserialization		
+			byte[] input = new byte[serializedInput.split(" ").length];
 			for (int i = 0; i < input.length; i++)
-				input[i] = Byte.parseByte(output.split(" ")[i]);
+				input[i] = Byte.parseByte(serializedInput.split(" ")[i]);
 			
 		    ByteArrayInputStream bi = new ByteArrayInputStream(input);
 		    ObjectInputStream si = new ObjectInputStream(bi);
 		     
-		    System.out.println(si.readObject() instanceof Lol);
-		     
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		   return si.readObject();
+		} catch(Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 		
 	}

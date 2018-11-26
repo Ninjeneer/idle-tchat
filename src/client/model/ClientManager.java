@@ -6,9 +6,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
 import client.controler.Controler;
+import serveur.GerantDeClient;
+import serveur.Serializer;
 
 public class ClientManager {
 	
@@ -45,13 +48,19 @@ public class ClientManager {
 		CompletableFuture.runAsync(() -> 
 			{
 				try {
-					String message;
+					Object reponse;
 					while(true) {
-						message = in.readLine();
-						message.replace("\\033[0;33m", "");
+						reponse = Serializer.deserialize(in.readLine());
+						System.out.println(reponse == null);
 						
-						for (String line : message.split("\n"))
-							this.ctrl.getWindow().newMessage(line);
+						if (reponse instanceof String) {							
+							for (String line : ((String) reponse).split("\n"))
+								this.ctrl.getWindow().newMessage(line);
+						} else if (reponse instanceof ArrayList<?>) {
+							//récéption de la liste des utilisateurs connectés
+							this.ctrl.getWindow().updateConnected((ArrayList<GerantDeClient>)reponse);
+						}
+						
 					}
 						
 				} catch (IOException e) {

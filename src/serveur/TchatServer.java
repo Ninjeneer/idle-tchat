@@ -86,6 +86,12 @@ public class TchatServer {
 		addCommand("blockcommand", new BlockCommand());
 		addCommand("unblockcommand", new UnBlockCommand()); 
 
+		
+		//Thread de rafraîchissement de la liste des clients (côté client)
+		RefreshClientList rcl = new RefreshClientList(this);
+		Thread trcl = new Thread(rcl);
+		trcl.start();
+		
 		while (true) {
 			// attente du client
 			Socket s = null;
@@ -139,8 +145,9 @@ public class TchatServer {
 		} else {
 			// envoi du message
 			for (GerantDeClient gdc : this.clientList) {
-				if (gdc != sender && !sender.isMuted() && sender.isAlive()) 
-					gdc.getPrintwriter().println(sender.getCouleur() + sender.getPseudo() + ": " + "\033[0m" + s);
+				if (gdc != sender && !sender.isMuted() && sender.isAlive())
+					gdc.showMessage(sender.getCouleur() + sender.getPseudo() + ": " + "\033[0m" + s);
+					
 				
 					
 			}

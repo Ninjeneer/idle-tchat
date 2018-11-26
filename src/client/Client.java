@@ -8,6 +8,9 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 
+import serveur.Serializer;
+import tests.Lol;
+
 
 public class Client {
 	public Client(){
@@ -46,13 +49,20 @@ public class Client {
 			out.println(pseudo);
 			
 			// boucle principale
-			String message = ""; 
+			String message = "";
 			
 			CompletableFuture.runAsync(() -> 
 				{
+					Object reponse = ""; 
 					try {
-						while(true)
-							System.out.println(in.readLine());
+						while(true) {
+							reponse = Serializer.deserialize(in.readLine());
+							
+							if (reponse instanceof String)
+								System.out.println(reponse);
+						}
+							
+							
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

@@ -60,7 +60,7 @@ public class GerantDeClient implements Runnable {
 
 		for (GerantDeClient gdc : this.ts.getClientList())
 			if (this.pseudo.equals(gdc.getPseudo()) || this.pseudo.contains(" ") || this.pseudo.length() < 3 || this.pseudo.length() > 20) {
-				this.out.println(Affichage.bold + "ERREUR : Ce pseudo est déjà utilisé ou invalide ! Quittez et recommencez."
+				showMessage(Affichage.bold + "ERREUR : Ce pseudo est déjà utilisé ou invalide ! Quittez et recommencez."
 						+ Affichage.reset);
 				return;
 			}
@@ -70,7 +70,7 @@ public class GerantDeClient implements Runnable {
 		if (!TchatServer.debug_mode)
 			for (int i = 0; i < this.ts.getClientList().size(); i++)
 				if (this.s.getInetAddress().getHostAddress().equals(this.ts.getClientList().get(i).getSocket().getInetAddress().getHostAddress())) {
-					this.out.println(Affichage.red + "ERREUR : un compte utilisant cette adresse IP est déjà connecté !" + Affichage.reset);
+					showMessage(Affichage.red + "ERREUR : un compte utilisant cette adresse IP est déjà connecté !" + Affichage.reset);
 					return;
 				}
 		
@@ -80,14 +80,14 @@ public class GerantDeClient implements Runnable {
 
 		// message de bienvenue
 		try {
-			this.out.println(Affichage.yellow + "   ___       _      _                      _____           _                _     \n"
+			showMessage(Affichage.yellow + "   ___       _      _                      _____           _                _     \n"
 					+ "  |_ _|   __| |    | |     ___      o O O |_   _|   __    | |_     __ _    | |_   \n"
 					+ "   | |   / _` |    | |    / -_)    o        | |    / _|   | ' \\   / _` |   |  _|  \n"
 					+ "  |___|  \\__,_|   _|_|_   \\___|   TS__[O]  _|_|_   \\__|_  |_||_|  \\__,_|   _\\__|  \n"
 					+ "_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| {======|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| \n"
 					+ "\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'./o--000'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' " + Affichage.reset);
 
-			this.out.println("Bienvenue sur le serveur " + pseudo + " !");
+			showMessage("Bienvenue sur le serveur " + pseudo + " !");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -119,8 +119,8 @@ public class GerantDeClient implements Runnable {
 	 * 
 	 * @param s
 	 */
-	public void showMessage(String s) {
-		this.out.println(s);
+	public void showMessage(Object s) {
+		this.out.println(Serializer.serialize(s));
 	}
 
 	/**

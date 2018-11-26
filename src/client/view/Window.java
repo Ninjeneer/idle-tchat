@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import client.controler.Controler;
+import serveur.GerantDeClient;
 
 public class Window extends JFrame implements ActionListener {
 
@@ -45,11 +47,6 @@ public class Window extends JFrame implements ActionListener {
 		this.btSend.addActionListener(this);
 		
 
-		// Liste des clients connectés
-		RefreshClientList rcl = new RefreshClientList(this.ctrl, this.listClient);
-		Thread trcl = new Thread(rcl);
-		trcl.start();
-
 		JPanel inputContainer = new JPanel(new BorderLayout());
 		inputContainer.add(this.tfInput);
 		inputContainer.add(this.btSend, BorderLayout.EAST);
@@ -74,6 +71,14 @@ public class Window extends JFrame implements ActionListener {
 			}
 
 		}
+	}
+	
+	public void updateConnected(ArrayList<GerantDeClient> clientList) {
+		String[] connectedList = new String[clientList.size()];
+		for (int i = 0; i < connectedList.length; i++)
+			connectedList[i] = clientList.get(i).getPseudo();
+		
+		this.listClient.setListData(connectedList);
 	}
 	
 	public void newMessage(String s) {

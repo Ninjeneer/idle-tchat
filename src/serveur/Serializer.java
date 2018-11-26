@@ -39,7 +39,7 @@ public class Serializer {
 	
 	public static Object deserialize(String serializedInput) {
 		
-		if (serializedInput == null)
+		if (serializedInput == null || serializedInput.equals(""))
 			return null;
 		
 		try {

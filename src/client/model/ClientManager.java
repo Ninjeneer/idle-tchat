@@ -51,7 +51,6 @@ public class ClientManager {
 					Object reponse;
 					while(true) {
 						reponse = Serializer.deserialize(in.readLine());
-						System.out.println(reponse == null);
 						
 						if (reponse instanceof String) {							
 							for (String line : ((String) reponse).split("\n"))

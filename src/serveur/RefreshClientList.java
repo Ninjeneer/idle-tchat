@@ -15,8 +15,7 @@ public class RefreshClientList implements Runnable {
 			for (GerantDeClient gdc : this.ts.getClientList())
 				gdc.showMessage(ts.getClientList());
 			
-			System.out.println(ts.getClientList().size());
-			try { Thread.sleep(2000); }catch(Exception e) {}
+			try { Thread.sleep(1000); }catch(Exception e) {}
 		}
 		
 	}

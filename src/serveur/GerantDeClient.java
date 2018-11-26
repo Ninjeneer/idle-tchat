@@ -4,14 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.net.Socket;
 
-public class GerantDeClient implements Runnable {
+public class GerantDeClient implements Runnable, Serializable {
 
-	private TchatServer ts;
-	private Socket s;
-	private PrintWriter out;
-	private BufferedReader in;
+	private transient TchatServer ts;
+	private transient Socket s;
+	private transient PrintWriter out;
+	private transient BufferedReader in;
 	private boolean tAlive;
 
 	// informations relatives au client

@@ -164,7 +164,7 @@ public class TchatServer {
 	public void sendNotification(GerantDeClient sender, String s) {
 		for (GerantDeClient gdc : this.clientList) {
 			if (gdc != sender)
-				gdc.getPrintwriter().println(s);
+				gdc.showMessage(s);
 		}
 	}
 

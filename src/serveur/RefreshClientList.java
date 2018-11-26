@@ -9,6 +9,9 @@ public class RefreshClientList implements Runnable {
 	}
 
 	@Override
+	/**
+	 * Envoi à tous les clients la liste des clients connectés toutes les secondes
+	 */
 	public void run() {
 		
 		while(true) {

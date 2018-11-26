@@ -40,6 +40,7 @@ public class Window extends JFrame implements ActionListener {
 		// création des widgets
 		this.menu = new Menu(this);
 		this.tpTchat = new JTextArea();
+		this.tpTchat.setEditable(false);
 		this.tfInput = new JTextField();
 		this.listClient = new JList<String>();
 		this.listClient.setPreferredSize(new Dimension(150, 600));
@@ -61,6 +62,9 @@ public class Window extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Traites les interactions IHM
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.btSend) {
 			if (!this.tfInput.getText().equals("")) {
@@ -73,6 +77,10 @@ public class Window extends JFrame implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Met à jour la liste des clients connectés
+	 * @param clientList liste des clients connectés
+	 */
 	public void updateConnected(ArrayList<GerantDeClient> clientList) {
 		String[] connectedList = new String[clientList.size()];
 		for (int i = 0; i < connectedList.length; i++)
@@ -81,10 +89,26 @@ public class Window extends JFrame implements ActionListener {
 		this.listClient.setListData(connectedList);
 	}
 	
+	/**
+	 * Vide la zone de tchat
+	 */
+	public void clearTchat() {
+		this.tpTchat.setText("");
+		this.listClient.setListData(new String[] {});
+	}
+	
+	/**
+	 * Ajoute un message à la zone de texte
+	 * @param s message
+	 */
 	public void newMessage(String s) {
 		this.tpTchat.append(s + "\n");
 	}
 
+	/**
+	 * Retourne le controleur
+	 * @return controleur
+	 */
 	public Controler getControler() {
 		return this.ctrl;
 	}

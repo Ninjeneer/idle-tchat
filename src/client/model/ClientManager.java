@@ -24,11 +24,21 @@ public class ClientManager {
 	
 	private Controler ctrl;
 
+	/**
+	 * Crée un client manager
+	 * @param ctrl controleur
+	 */
 	public ClientManager(Controler ctrl) {
 		this.ctrl = ctrl;
 		this.connected = false;
 	}
 	
+	/**
+	 * Établi la connexion avec le serveur cible
+	 * @throws NumberFormatException
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	public void startConnexion() throws NumberFormatException, UnknownHostException, IOException{
 			this.s = new Socket(this.serverAddress.split(":")[0], Integer.parseInt(this.serverAddress.split(":")[1]));
 			this.out = new PrintWriter(s.getOutputStream(), true);
@@ -38,12 +48,19 @@ public class ClientManager {
 			this.out.println(this.pseudo);
 	}
 	
+	/**
+	 * Envoie un message au serveur
+	 * @param s message
+	 */
 	public void sendMessage(String s) {
 		try {
 			this.out.println(s);
 		} catch(Exception e) {}
 	}
 	
+	/**
+	 * Commence la récupération asynchrone des messages
+	 */
 	public void startGetMessage() {
 		CompletableFuture.runAsync(() -> 
 			{
@@ -69,28 +86,49 @@ public class ClientManager {
 		);
 	}
 	
+
 	public BufferedReader getInputStream() {
 		return this.in;
 	}
 	
-	
+	/**
+	 * Défini les informations relatives à la connexion
+	 * @param serverAddress adresse IP du serveur
+	 * @param pseudo pseudo du client
+	 */
 	public void setConnexionInformations(String serverAddress, String pseudo) {
 		this.serverAddress = serverAddress;
 		this.pseudo = pseudo;
 	}
 
+	/**
+	 * Retourne l'adresse du serveur cible
+	 * @return adresse IP
+	 */
 	public String getServerAddress() {
 		return serverAddress;
 	}
 
+	/**
+	 * Retourne le pseudo du client
+	 * @return pseudo
+	 */
 	public String getPseudo() {
 		return pseudo;
 	}
 	
+	/**
+	 * Défini si le client est connecté
+	 * @param b vrai si connecté
+	 */
 	public void setConnected(boolean b) {
 		this.connected = b;
 	}
 	
+	/**
+	 * Retourne si le client est connecté
+	 * @return vrai si connecté
+	 */
 	public boolean isConnected() {
 		return this.connected;
 	}

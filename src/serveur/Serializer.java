@@ -10,6 +10,11 @@ import tests.Lol;
 
 public class Serializer {
 
+	/**
+	 * Serialize un objet sans passer par un fichier
+	 * @param o objet à serializer
+	 * @return string
+	 */
 	public static String serialize(Object o) {
 		
 		try {
@@ -20,10 +25,10 @@ public class Serializer {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
 
-			
 			oos.writeObject(o);
 			serialized = baos.toByteArray();
 			
+			// transformation des bytes en string
 			for (byte b : serialized)
 				output += b + " ";
 			
@@ -37,6 +42,11 @@ public class Serializer {
 		
 	}
 	
+	/**
+	 * Déserialize un objet sans passer par un fichier
+	 * @param serializedInput objet serialisé
+	 * @return Object
+	 */
 	public static Object deserialize(String serializedInput) {
 		
 		if (serializedInput == null || serializedInput.equals(""))
@@ -45,6 +55,7 @@ public class Serializer {
 		try {
 			//Deserialization		
 			byte[] input = new byte[serializedInput.split(" ").length];
+			// transformation de la serialization en bytes
 			for (int i = 0; i < input.length; i++)
 				input[i] = Byte.parseByte(serializedInput.split(" ")[i]);
 			

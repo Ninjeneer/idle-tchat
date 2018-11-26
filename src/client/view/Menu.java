@@ -14,24 +14,50 @@ import javax.swing.JOptionPane;
 public class Menu extends JMenuBar implements ActionListener {
 
 	private Window w;
-	private JMenu mServeur;
-	private JMenuItem miConnexion;
+	private JMenu mClient;
+	private JMenuItem miConnect;
+	private JMenuItem miDisconnect;
+	
+	private JMenu mServer;
+	private JMenuItem miCreate;
+	private JMenuItem miStop;
+	
 
+	/**
+	 * Crée une barre de menu
+	 * @param w frame mère
+	 */
 	public Menu(Window w) {
 		this.w = w;
-		this.mServeur = new JMenu("Serveur");
-		this.miConnexion = new JMenuItem("Connexion");
-		this.miConnexion.addActionListener(this);
+		this.mClient = new JMenu("Client");
+		this.miConnect = new JMenuItem("Connexion");
+		this.miConnect.addActionListener(this);
+		
+		this.miDisconnect = new JMenuItem("Déconnexion");
+		this.miDisconnect.setEnabled(false);
+		this.miDisconnect.addActionListener(this);
+		
+		this.mServer = new JMenu("Serveur");
+		this.miCreate = new JMenuItem("Créer un serveur");
+		this.miStop = new JMenuItem("Arrêter le serveur");
 		
 			
 
-		this.mServeur.add(this.miConnexion);
+		this.mClient.add(this.miConnect);
+		this.mClient.add(this.miDisconnect);
+		
+		this.mServer.add(this.miCreate);
+		this.mServer.add(this.miStop);
 
-		this.add(this.mServeur);
+		this.add(this.mClient);
+		this.add(this.mServer);
 	}
 
+	/**
+	 * Traite les interactions avec le menu
+	 */
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.miConnexion) {
+		if (e.getSource() == this.miConnect) {
 			String serverAddress = "";
 			String pseudo = "";
 			
@@ -50,14 +76,20 @@ public class Menu extends JMenuBar implements ActionListener {
 					this.w.getControler().getClientManager().setConnexionInformations(serverAddress, pseudo);
 					this.w.getControler().getClientManager().startConnexion();
 					
-					System.out.println("Connecté !");
 					this.w.getControler().getClientManager().setConnected(true);
 					this.w.getControler().getClientManager().startGetMessage();
+					this.miConnect.setEnabled(false);
+					this.miDisconnect.setEnabled(true);
 				} catch (Exception ex) {
-					System.out.println("Impossible de se connecter");
+					JOptionPane.showMessageDialog(this.w, "Erreur : impossible de se connecter au serveur !", "Erreur", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			} catch(Exception ex) {}
+		} else if (e.getSource() == this.miDisconnect) {
+			this.w.getControler().getClientManager().sendMessage("/quit");
+			this.w.clearTchat();
+			this.miConnect.setEnabled(true);
+			this.miDisconnect.setEnabled(false);
 		}
 	}
 }

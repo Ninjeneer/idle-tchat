@@ -21,8 +21,7 @@ public class GerantDeClient implements Runnable, Serializable {
 	private boolean isAdmin;
 	private boolean isMuted;
 	private boolean isCommandAllowed;
-	private long lastMessage; //timestamp
-
+	private long lastMessage; // timestamp
 
 	/**
 	 * Crée un gérant de client
@@ -43,7 +42,7 @@ public class GerantDeClient implements Runnable, Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/**
@@ -60,33 +59,33 @@ public class GerantDeClient implements Runnable, Serializable {
 		}
 
 		for (GerantDeClient gdc : this.ts.getClientList())
-			if (this.pseudo.equals(gdc.getPseudo()) || this.pseudo.contains(" ") || this.pseudo.length() < 3 || this.pseudo.length() > 20) {
+			if (this.pseudo.equals(gdc.getPseudo()) || this.pseudo.contains(" ") || this.pseudo.length() < 3
+					|| this.pseudo.length() > 20) {
 				showMessage(Affichage.bold + "ERREUR : Ce pseudo est déjà utilisé ou invalide ! Quittez et recommencez."
 						+ Affichage.reset);
 				return;
 			}
-		
-		
+
 		// bloque les multiples connexions par IP
 		if (!TchatServer.debug_mode)
 			for (int i = 0; i < this.ts.getClientList().size(); i++)
-				if (this.s.getInetAddress().getHostAddress().equals(this.ts.getClientList().get(i).getSocket().getInetAddress().getHostAddress())) {
-					showMessage(Affichage.red + "ERREUR : un compte utilisant cette adresse IP est déjà connecté !" + Affichage.reset);
+				if (this.s.getInetAddress().getHostAddress()
+						.equals(this.ts.getClientList().get(i).getSocket().getInetAddress().getHostAddress())) {
+					showMessage(Affichage.red + "ERREUR : un compte utilisant cette adresse IP est déjà connecté !"
+							+ Affichage.reset);
 					return;
 				}
-		
-		
-				
-		
 
 		// message de bienvenue
 		try {
-			showMessage(Affichage.yellow + "   ___       _      _                      _____           _                _     \n"
+			showMessage(Affichage.yellow
+					+ "   ___       _      _                      _____           _                _     \n"
 					+ "  |_ _|   __| |    | |     ___      o O O |_   _|   __    | |_     __ _    | |_   \n"
 					+ "   | |   / _` |    | |    / -_)    o        | |    / _|   | ' \\   / _` |   |  _|  \n"
 					+ "  |___|  \\__,_|   _|_|_   \\___|   TS__[O]  _|_|_   \\__|_  |_||_|  \\__,_|   _\\__|  \n"
 					+ "_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| {======|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| \n"
-					+ "\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'./o--000'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' " + Affichage.reset);
+					+ "\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'./o--000'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' "
+					+ Affichage.reset);
 
 			showMessage("Bienvenue sur le serveur " + pseudo + " !");
 		} catch (Exception e) {
@@ -100,15 +99,15 @@ public class GerantDeClient implements Runnable, Serializable {
 		while (this.tAlive) {
 			try {
 				String message = in.readLine();
-				
+
 				if (System.currentTimeMillis() - this.lastMessage >= 500) {
 					this.ts.sendMessage(this, message);
 				} else {
 					showMessage(Affichage.red + "ATTENTION : évitez le spam !" + Affichage.reset);
 				}
-				
+
 				this.lastMessage = System.currentTimeMillis();
-				
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -212,27 +211,29 @@ public class GerantDeClient implements Runnable, Serializable {
 	public void setMuted(boolean b) {
 		this.isMuted = b;
 	}
-	
+
 	/**
 	 * Change la couleur du pseudo
+	 * 
 	 * @param color caractère couleur
 	 */
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
+
 	/**
 	 * Retourne vrai si le client est encore connecté
+	 * 
 	 * @return client encore connecté
 	 */
 	public boolean isAlive() {
 		return this.tAlive;
 	}
-	
+
 	public boolean isComandAllowed() {
 		return this.isCommandAllowed;
 	}
-	
+
 	public void setCommandAllowed(boolean b) {
 		this.isCommandAllowed = b;
 	}

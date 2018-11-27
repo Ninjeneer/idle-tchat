@@ -69,7 +69,7 @@ public class TchatServer {
 		addCommand("me", new Me());
 		addCommand("who", new Who());
 		addCommand("changercouleur", new ChangerCouleur());
-		
+
 		// commandes admin
 		addCommand("kick", new Kick());
 		addCommand("adminlogin", new AdminLogin());
@@ -84,20 +84,19 @@ public class TchatServer {
 		addCommand("muteall", new MuteAll());
 		addCommand("unmuteall", new UnMuteAll());
 		addCommand("blockcommand", new BlockCommand());
-		addCommand("unblockcommand", new UnBlockCommand()); 
+		addCommand("unblockcommand", new UnBlockCommand());
 
-		
-		//Thread de rafraîchissement de la liste des clients (côté client)
+		// Thread de rafraîchissement de la liste des clients (côté client)
 		RefreshClientList rcl = new RefreshClientList(this);
 		Thread trcl = new Thread(rcl);
 		trcl.start();
-		
+
 		while (true) {
 			// attente du client
 			Socket s = null;
 			try {
 				s = ss.accept();
-					
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -132,9 +131,10 @@ public class TchatServer {
 				sender.showMessage(Affichage.bold + "ERREUR : cette commande n'existe pas" + Affichage.reset);
 				return;
 			}
-			
+
 			if (!sender.isComandAllowed()) {
-				sender.showMessage(Affichage.red + "ERREUR : vos commandes ont été bloquées par un administrateur !" + Affichage.reset);
+				sender.showMessage(Affichage.red + "ERREUR : vos commandes ont été bloquées par un administrateur !"
+						+ Affichage.reset);
 				return;
 			}
 
@@ -147,9 +147,7 @@ public class TchatServer {
 			for (GerantDeClient gdc : this.clientList) {
 				if (gdc != sender && !sender.isMuted() && sender.isAlive())
 					gdc.showMessage(sender.getCouleur() + sender.getPseudo() + ": " + "\033[0m" + s);
-					
-				
-					
+
 			}
 		}
 
@@ -217,7 +215,6 @@ public class TchatServer {
 	public HashMap<String, Commande> getCommandeList() {
 		return this.commandListe;
 	}
-	
 
 	public static void main(String[] args) {
 		new TchatServer(8003);

@@ -62,7 +62,7 @@ public class Menu extends JMenuBar implements ActionListener {
 			try {
 				do {
 					serverAddress = JOptionPane.showInputDialog(this.w,
-							"Entrez l'adresse du serveur :\n(Ex : ci-di-715-23)", "Connexion au serveur",
+							"Entrez l'adresse et le port du serveur :\n(Ex : c-di-715-23:9000)", "Connexion au serveur",
 							JOptionPane.PLAIN_MESSAGE);
 				} while (serverAddress.equals(""));
 

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -88,6 +89,7 @@ public class Window extends JFrame implements ActionListener {
 	 * @param clientList liste des clients connectés
 	 */
 	public void updateConnected(ArrayList<GerantDeClient> clientList) {
+		Collections.sort(clientList);
 		String[] connectedList = new String[clientList.size()];
 		for (int i = 0; i < connectedList.length; i++)
 			connectedList[i] = clientList.get(i).getPseudo();

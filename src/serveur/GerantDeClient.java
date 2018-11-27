@@ -9,7 +9,7 @@ import java.net.Socket;
 
 import utils.Affichage;
 
-public class GerantDeClient implements Runnable, Serializable {
+public class GerantDeClient implements Runnable, Serializable, Comparable<GerantDeClient> {
 
 	private transient TchatServer ts;
 	private transient Socket s;
@@ -239,5 +239,12 @@ public class GerantDeClient implements Runnable, Serializable {
 	public void setCommandAllowed(boolean b) {
 		this.isCommandAllowed = b;
 	}
+
+	@Override
+	public int compareTo(GerantDeClient gdc) {
+		return this.pseudo.compareTo(gdc.getPseudo());
+	}
+
+
 
 }

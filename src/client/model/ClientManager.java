@@ -72,6 +72,8 @@ public class ClientManager {
 				Object reponse;
 				while (true) {
 					reponse = Serializer.deserialize(in.readLine());
+					
+					System.out.println(reponse);
 
 					// récéption d'un message simple
 					if (reponse instanceof String) {

@@ -10,9 +10,8 @@ import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
 import client.controler.Controler;
-import serveur.GerantDeClient;
-import serveur.Serializer;
 import utils.Affichage;
+import utils.Serializer;
 
 public class ClientManager {
 
@@ -72,8 +71,6 @@ public class ClientManager {
 				Object reponse;
 				while (true) {
 					reponse = Serializer.deserialize(in.readLine());
-					
-					System.out.println(reponse);
 
 					// récéption d'un message simple
 					if (reponse instanceof String) {
@@ -90,7 +87,7 @@ public class ClientManager {
 							this.ctrl.getWindow().newMessage(line);
 					} else if (reponse instanceof ArrayList<?>) {
 						// récéption de la liste des utilisateurs connectés
-						this.ctrl.getWindow().updateConnected((ArrayList<GerantDeClient>) reponse);
+						this.ctrl.getWindow().updateConnected((ArrayList<String>) reponse);
 					}
 
 				}

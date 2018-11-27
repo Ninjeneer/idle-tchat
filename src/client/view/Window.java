@@ -16,10 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.text.DefaultCaret;
 
 import client.controler.Controler;
-import serveur.GerantDeClient;
 
 public class Window extends JFrame implements ActionListener {
 
@@ -88,11 +86,10 @@ public class Window extends JFrame implements ActionListener {
 	 * 
 	 * @param clientList liste des clients connectés
 	 */
-	public void updateConnected(ArrayList<GerantDeClient> clientList) {
+	public void updateConnected(ArrayList<String> clientList) {
 		Collections.sort(clientList);
 		String[] connectedList = new String[clientList.size()];
-		for (int i = 0; i < connectedList.length; i++)
-			connectedList[i] = clientList.get(i).getPseudo();
+		clientList.toArray(connectedList);
 
 		this.listClient.setListData(connectedList);
 	}

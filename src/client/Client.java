@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 
-import serveur.Serializer;
+import utils.Serializer;
 
 public class Client {
 	public Client() {

@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.net.Socket;
 
 import utils.Affichage;
+import utils.Serializer;
 
 public class GerantDeClient implements Runnable, Serializable, Comparable<GerantDeClient> {
 

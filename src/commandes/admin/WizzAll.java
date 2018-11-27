@@ -2,9 +2,9 @@ package commandes.admin;
 
 import commandes.Commande;
 import commandes.Wizz;
-import serveur.Affichage;
 import serveur.GerantDeClient;
 import serveur.TchatServer;
+import utils.Affichage;
 
 public class WizzAll implements Commande{
 

@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
 import client.controler.Controler;
-import serveur.Affichage;
 import serveur.GerantDeClient;
 import serveur.Serializer;
+import utils.Affichage;
 
 public class ClientManager {
 
@@ -76,7 +76,14 @@ public class ClientManager {
 					// récéption d'un message simple
 					if (reponse instanceof String) {
 						String message = (String) reponse;
-
+						
+						// suppression des caractères de format propres à la console
+						message = message.replace(Affichage.bold, "");
+						message = message.replace(Affichage.italic, "");
+						message = message.replace(Affichage.reset, "");
+						for (String color : Affichage.colors)
+							message = message.replace(color, "");
+						
 						for (String line : message.split("\n"))
 							this.ctrl.getWindow().newMessage(line);
 					} else if (reponse instanceof ArrayList<?>) {

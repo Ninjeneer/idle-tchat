@@ -1,4 +1,4 @@
-package serveur;
+package utils;
 
 public class Affichage {
 

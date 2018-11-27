@@ -3,9 +3,9 @@ package commandes.admin;
 import java.util.Map.Entry;
 
 import commandes.Commande;
-import serveur.Affichage;
 import serveur.GerantDeClient;
 import serveur.TchatServer;
+import utils.Affichage;
 
 public class AdminHelp implements Commande {
 

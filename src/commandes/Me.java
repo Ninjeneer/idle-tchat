@@ -1,8 +1,8 @@
 package commandes;
 
-import serveur.Affichage;
 import serveur.GerantDeClient;
 import serveur.TchatServer;
+import utils.Affichage;
 
 public class Me implements Commande {
 

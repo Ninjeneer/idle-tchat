@@ -2,6 +2,7 @@ package client.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,8 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.text.DefaultCaret;
 
 import client.controler.Controler;
 import serveur.GerantDeClient;
@@ -31,7 +35,7 @@ public class Window extends JFrame implements ActionListener {
 
 		// propriétés de la fenêtre
 		this.setLayout(new BorderLayout(15, 5));
-		this.setSize(800, 600);
+		this.setSize(1000, 600);
 		this.setTitle("Idle Tchat");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -39,7 +43,9 @@ public class Window extends JFrame implements ActionListener {
 		this.menu = new Menu(this);
 		this.tpTchat = new JTextArea();
 		this.tpTchat.setEditable(false);
+		this.tpTchat.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
 		this.tfInput = new JTextField();
+		this.tfInput.addActionListener(this);
 		this.listClient = new JList<String>();
 		this.listClient.setPreferredSize(new Dimension(150, 600));
 		this.btSend = new JButton("Envoyer");
@@ -48,10 +54,13 @@ public class Window extends JFrame implements ActionListener {
 		JPanel inputContainer = new JPanel(new BorderLayout());
 		inputContainer.add(this.tfInput);
 		inputContainer.add(this.btSend, BorderLayout.EAST);
+		
+		JScrollPane sp = new JScrollPane(this.tpTchat);
+		sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		// ajout des widgets
 		this.add(this.menu, BorderLayout.NORTH);
-		this.add(this.tpTchat);
+		this.add(sp);
 		this.add(inputContainer, BorderLayout.SOUTH);
 		this.add(this.listClient, BorderLayout.EAST);
 
@@ -62,7 +71,7 @@ public class Window extends JFrame implements ActionListener {
 	 * Traites les interactions IHM
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.btSend) {
+		if (e.getSource() == this.btSend || e.getSource() == this.tfInput) {
 			if (!this.tfInput.getText().equals("")) {
 				this.ctrl.getClientManager().sendMessage(this.tfInput.getText());
 				this.tpTchat.append(this.ctrl.getClientManager().getPseudo() + " : " + this.tfInput.getText() + "\n");
@@ -101,6 +110,7 @@ public class Window extends JFrame implements ActionListener {
 	 */
 	public void newMessage(String s) {
 		this.tpTchat.append(s + "\n");
+		this.tpTchat.setCaretPosition(this.tpTchat.getDocument().getLength());
 	}
 
 	/**

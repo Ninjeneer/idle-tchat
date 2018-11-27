@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.net.Socket;
 
+import utils.Affichage;
+
 public class GerantDeClient implements Runnable, Serializable {
 
 	private transient TchatServer ts;

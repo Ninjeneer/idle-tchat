@@ -1,8 +1,6 @@
 package serveur;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -32,6 +30,7 @@ import commandes.admin.UnBlockCommand;
 import commandes.admin.UnMute;
 import commandes.admin.UnMuteAll;
 import commandes.admin.WizzAll;
+import utils.Affichage;
 
 public class TchatServer {
 
@@ -39,7 +38,6 @@ public class TchatServer {
 	private ServerSocket ss;
 	private ArrayList<GerantDeClient> clientList;
 	private HashMap<String, Commande> commandListe;
-	private long lastConnexion;
 
 	/**
 	 * Crée un serveur de tchat

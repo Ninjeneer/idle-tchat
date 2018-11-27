@@ -9,7 +9,6 @@ import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 
 import serveur.Serializer;
-import tests.Lol;
 
 
 public class Client {
@@ -17,6 +16,7 @@ public class Client {
 		
 		String serveur,pseudo,port,temp;
 		Scanner sc;
+		
 		System.out.println("Bienvenue sur Idle Tchat ");
 		sc = new Scanner(System.in);
 		
@@ -44,7 +44,7 @@ public class Client {
 
 			PrintWriter out = new PrintWriter(toServer.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(toServer.getInputStream()));
-
+			
 			// envoi du pseudo au serveur
 			out.println(pseudo);
 			
@@ -58,8 +58,10 @@ public class Client {
 						while(true) {
 							reponse = Serializer.deserialize(in.readLine());
 							
-							if (reponse instanceof String)
+							if (reponse instanceof String) {
 								System.out.println(reponse);
+							}
+								
 						}
 							
 							

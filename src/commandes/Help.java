@@ -2,9 +2,9 @@ package commandes;
 
 import java.util.Map.Entry;
 
-import serveur.Affichage;
 import serveur.GerantDeClient;
 import serveur.TchatServer;
+import utils.Affichage;
 
 public class Help implements Commande {
 

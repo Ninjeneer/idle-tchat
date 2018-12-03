@@ -48,7 +48,7 @@ public class TchatServer {
 			// création du serveur
 			System.out.println("Création du tchat..");
 			this.ss = new ServerSocket(port);
-			System.out.println("Tchat créé !");
+			System.out.println("Tchat créé sur le port " + port + " !");
 		} catch (Exception e) {
 			System.out.println("Impossible de créer le serveur");
 			e.printStackTrace();
@@ -77,7 +77,7 @@ public class TchatServer {
 		addCommand("say", new Say());
 		addCommand("adminhelp", new AdminHelp());
 		addCommand("getinfo", new GetInfo());
-		addCommand("wizzall", new WizzAll());
+		addCommand("wizza8003ll", new WizzAll());
 		addCommand("kickall", new KickAll());
 		addCommand("muteall", new MuteAll());
 		addCommand("unmuteall", new UnMuteAll());
@@ -215,6 +215,18 @@ public class TchatServer {
 	}
 
 	public static void main(String[] args) {
-		new TchatServer(8003);
+		
+		int port;
+		if (args.length == 0)
+			port = 8003; //port par défaut
+		else
+			try {
+				port = Integer.parseInt(args[0]);
+			} catch(Exception e) {
+				port = 8003;
+			}
+		
+		
+		new TchatServer(port);
 	}
 }

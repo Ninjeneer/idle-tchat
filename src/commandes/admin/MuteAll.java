@@ -33,14 +33,12 @@ public class MuteAll implements Commande{
 
 	@Override
 	public String getError() {
-		// TODO Auto-generated method stub
-		return null;
+		return "USAGE : /muteall";
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "mute tous les utilisateurs";
 	}
 
 }

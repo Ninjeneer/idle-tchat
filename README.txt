@@ -37,7 +37,7 @@
 #Notes sur le code
 	Le code de notre serveur est légerement différent de celui-ci des autres. 
 	En effet, de par l'utilisation d'une IHM possédant une liste de client connectés, nous étions dans l'obligation d'envoyer des objets entre le serveur et client. Ainsi
-	nous avons du sérialiser tout le traffic Serveur -> Client.
+	nous avons du sérialiser tout le traffic Serveur -> Client (par conséquent les tests avec NC ne fonctionneront pas).
 	
 	Il est facilement faisable de rajouter des commandes à votre guise. Il suffit de créer une classe implémentant l'interface Commande, et d'ajouter celle-ci dans 
 	TchatServeur à l'aide la méthode addCommande(String nomCommande, Commande cmd);

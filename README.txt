@@ -10,14 +10,14 @@
 	
 #Utilisation
 	~ CUI :
-		Entrez votre pseudo
 		Entrez l'adresse du serveur auquel vous souhaitez accéder
+		Entrez votre pseudo
 		Enjoy :)
 		
 	~ GUI :
 		Menu "Client" -> "Connexion"
-		Entrez votre pseudo
 		Entrez l'adresse du serveur auquel vous souhaitez accéder
+		Entrez votre pseudo
 		Enjoy :)
 		
 	De nombreuses commandes existent. Pour les lister, faites /help.

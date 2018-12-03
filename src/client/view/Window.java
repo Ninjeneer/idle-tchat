@@ -44,6 +44,7 @@ public class Window extends JFrame implements ActionListener {
 		this.taTchat.setEditable(false);
 		this.taTchat.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
 		this.taTchat.setWrapStyleWord(true);
+		this.taTchat.setLineWrap(true);
 		this.tfInput = new JTextField();
 		this.tfInput.addActionListener(this);
 		this.listClient = new JList<String>();

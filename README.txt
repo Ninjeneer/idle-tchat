@@ -2,6 +2,7 @@
 
 #Démarrage
 	1. Se placer à la racine et compiler l'ensemble du projet à l'aide de la compile list (javac @compile.list)
+		un warning apparaîtra à la compilation, il faut l'ignorer
 	2. Exécutez le serveur (java serveur.TchatServer [portNumber])
 		si aucun port n'est renseigné, le port 8003 sera attribué par défaut
 	3. Pour exécuter le client en mode CUI : java client.Client

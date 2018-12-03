@@ -1,7 +1,7 @@
 ============== EXÉCUTION DE IDLETCHAT ==============
 
 #Démarrage
-	1. Compiler l'ensemble du projet à l'aide de la compile list (javac @compile.list)
+	1. Se placer à la racine et compiler l'ensemble du projet à l'aide de la compile list (javac @compile.list)
 	2. Exécutez le serveur (java serveur.TchatServer [portNumber])
 		si aucun port n'est renseigné, le port 8003 sera attribué par défaut
 	3. Pour exécuter le client en mode CUI : java client.Client
@@ -10,8 +10,8 @@
 	
 #Utilisation
 	~ CUI :
-		Entrez l'adresse du serveur auquel vous souhaitez accéder
 		Entrez votre pseudo
+		Entrez l'adresse du serveur auquel vous souhaitez accéder
 		Enjoy :)
 		
 	~ GUI :
@@ -25,7 +25,11 @@
 		
 #Administration
 	Il existe dans IdleTchat un système d'administration. Pour devenir administrateur, entrez cette commande : /adminlogin idle8003
-	Être administrateur vous permet d'accéder à toutes les commandes listées dans le /adminhelp 
+	Être administrateur vous permet d'accéder à toutes les commandes listées dans le /adminhelp
+	
+
+#Déconnexion
+	Pour vous déconnecter, vous pouvez utiliser la commande /quit (fonctionne en CUI et GUI) ou utiliser le menu Client > Déconnexion (fonctionne uniquement en GUI) 
 	
 	
 	

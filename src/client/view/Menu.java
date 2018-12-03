@@ -18,9 +18,6 @@ public class Menu extends JMenuBar implements ActionListener {
 	private JMenuItem miConnect;
 	private JMenuItem miDisconnect;
 
-	private JMenu mServer;
-	private JMenuItem miCreate;
-	private JMenuItem miStop;
 
 	/**
 	 * Crée une barre de menu
@@ -37,18 +34,12 @@ public class Menu extends JMenuBar implements ActionListener {
 		this.miDisconnect.setEnabled(false);
 		this.miDisconnect.addActionListener(this);
 
-		this.mServer = new JMenu("Serveur");
-		this.miCreate = new JMenuItem("Créer un serveur");
-		this.miStop = new JMenuItem("Arrêter le serveur");
-
 		this.mClient.add(this.miConnect);
 		this.mClient.add(this.miDisconnect);
 
-		this.mServer.add(this.miCreate);
-		this.mServer.add(this.miStop);
 
 		this.add(this.mClient);
-		this.add(this.mServer);
+
 	}
 
 	/**

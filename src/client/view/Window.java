@@ -21,7 +21,7 @@ import client.controler.Controler;
 
 public class Window extends JFrame implements ActionListener {
 
-	private JTextArea tpTchat;
+	private JTextArea taTchat;
 	private JTextField tfInput;
 	private JList<String> listClient;
 	private JButton btSend;
@@ -40,9 +40,10 @@ public class Window extends JFrame implements ActionListener {
 
 		// création des widgets
 		this.menu = new Menu(this);
-		this.tpTchat = new JTextArea();
-		this.tpTchat.setEditable(false);
-		this.tpTchat.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
+		this.taTchat = new JTextArea();
+		this.taTchat.setEditable(false);
+		this.taTchat.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
+		this.taTchat.setWrapStyleWord(true);
 		this.tfInput = new JTextField();
 		this.tfInput.addActionListener(this);
 		this.listClient = new JList<String>();
@@ -54,7 +55,7 @@ public class Window extends JFrame implements ActionListener {
 		inputContainer.add(this.tfInput);
 		inputContainer.add(this.btSend, BorderLayout.EAST);
 		
-		JScrollPane sp = new JScrollPane(this.tpTchat);
+		JScrollPane sp = new JScrollPane(this.taTchat);
 		sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		// ajout des widgets
@@ -73,7 +74,7 @@ public class Window extends JFrame implements ActionListener {
 		if (e.getSource() == this.btSend || e.getSource() == this.tfInput) {
 			if (!this.tfInput.getText().equals("")) {
 				this.ctrl.getClientManager().sendMessage(this.tfInput.getText());
-				this.tpTchat.append(this.ctrl.getClientManager().getPseudo() + " : " + this.tfInput.getText() + "\n");
+				this.taTchat.append(this.ctrl.getClientManager().getPseudo() + " : " + this.tfInput.getText() + "\n");
 				this.tfInput.setText("");
 
 			}
@@ -98,7 +99,7 @@ public class Window extends JFrame implements ActionListener {
 	 * Vide la zone de tchat
 	 */
 	public void clearTchat() {
-		this.tpTchat.setText("");
+		this.taTchat.setText("");
 		this.listClient.setListData(new String[] {});
 	}
 
@@ -108,8 +109,8 @@ public class Window extends JFrame implements ActionListener {
 	 * @param s message
 	 */
 	public void newMessage(String s) {
-		this.tpTchat.append(s + "\n");
-		this.tpTchat.setCaretPosition(this.tpTchat.getDocument().getLength());
+		this.taTchat.append(s + "\n");
+		this.taTchat.setCaretPosition(this.taTchat.getDocument().getLength());
 	}
 
 	/**

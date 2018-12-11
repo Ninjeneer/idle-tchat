@@ -8,15 +8,13 @@
 ## Démarrage du client
 
 ### Client en mode console
-Pour exécuter le client en mode CUI : 
-	java client.Client
+Pour exécuter le client en mode CUI : `java client.Client`
 * Entrez votre pseudo
 * Entrez l'adresse du serveur auquel vous souhaitez accéder
 * Enjoy :)
 
 ### Client en mode graphique
-Pour exécuter le client en mode GUI : 
-	java client.controler.Controler
+Pour exécuter le client en mode GUI : `java client.controler.Controler`
 
 * Menu "Client" -> "Connexion"
 * Entrez l'adresse du serveur auquel vous souhaitez accéder

@@ -1,4 +1,5 @@
-============== EXÉCUTION DE IDLETCHAT ==============
+IDLETCHAT
+=========
 
 #Démarrage
 	1. Se placer à la racine et compiler l'ensemble du projet à l'aide de la compile list (javac @compile.list)
